@@ -1,0 +1,20 @@
+- if !@next_page.nil?
+  .HAVE_NEXTPAGE
+- if !@news_data.nil?
+  .FORJS
+  - @news_data.each do |group|
+    .b-event
+      .b-gray-ribbon-big
+        i.corner-l-t
+        i.corner-r-t
+        i.corner-l-b
+        i.corner-r-b
+        .h-shift-24
+          .b-green-line
+            i.ribbon
+            span.text = Russian::strftime(group[0], "%d %B %Y")
+
+          - group[1].each do |food|
+            h3.title-event
+              = link_to food.title, :action => :show, :id => food.menufilename
+  .FORJS

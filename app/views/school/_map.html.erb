@@ -1,0 +1,43 @@
+<script type="text/javascript">
+ymaps.ready(init);
+
+function init () {
+    var identification_map = true;
+    var anchor = window.location.hash.replace("#","");
+    param();
+    if(anchor == 'inf-2') identification_map = false;
+    $(".tab-map").click(function (event, ui){
+        if(identification_map) param();
+        identification_map = false;
+    });
+} 
+function param(){
+    var myMap = new ymaps.Map('map', {
+        center: [56.859633, 35.89278],
+        zoom: 13,
+        type: "yandex#map"
+    });
+    <% School.where(archive: false).each do |school| %>
+        myMap.geoObjects.add(new ymaps.Placemark(['<%= school.n_cordinate %>','<%= school.e_cordinate %>'], {
+            iconContent: '<%= school.permalink %>',
+            balloonContentHeader: '<h3 class="b-map-title"><a href="/school/<%= school.permalink %>"><%= school.title %></a>&nbsp;&nbsp</h3>',
+            <% if school.existing_site.blank? %> 
+                balloonContentBody: '<div class="b-map-address"><%= school.address %></div><div class="b-map-phone"></div><div class="b-map-link"><a href="/school/<%= school.permalink %>">Сайт школы на портале</a></div><div class="b-map-link h-bottom-8">'
+            <% else %>
+                balloonContentBody: '<div class="b-map-address"><%= school.address %></div><div class="b-map-phone"></div><div class="b-map-link"><a href="/school/<%= school.permalink %>">Сайт школы на портале</a></div><div class="b-map-link h-bottom-8"><a href="<%= school.existing_site %>">Сайт школы собственный</a></div>'
+            <% end %>
+        }, {
+        preset: 'twirl#blueStretchyIcon'
+        }));
+    <% end %>
+    
+     myMap.controls
+        .add('zoomControl')
+        .add(new ymaps.control.ScaleLine())
+        .add(new ymaps.control.TypeSelector(["yandex#map", "yandex#satellite"]))
+        .add(new ymaps.control.MiniMap({
+            type: 'yandex#publicMap'
+    }));
+}
+
+</script>

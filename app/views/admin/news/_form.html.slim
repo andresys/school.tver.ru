@@ -1,0 +1,41 @@
+.b-field
+  h3.h-bottom-10 = 'Достижения'
+  ul.b-list-fields
+    li.item
+      = f.check_box :achiev_school, :class => 'h-right-5'
+      = f.label :achiev_school, 'Достижение школы'
+    li.item
+      = f.check_box :achiev_section, :class => 'h-right-5'
+      = f.label  :achiev_section, 'Достижение секции'
+    li.item
+      = f.check_box :achiev_teacher, :class => 'h-right-5'
+      = f.label :achiev_teacher, 'Достижение учителя'
+    li.item
+      = f.check_box :achiev_pupil, :class => 'h-right-5'
+      = f.label :achiev_pupil, 'Достижение учеников'
+- if !@school.teacher.blank?
+  .b-field
+    .b-hidden-text
+      .change-show-hidden-text
+        a href="?open" class="b-pseudo-link" 
+          | Учителя и сотрудники
+          i class="arrow"
+      .hidden-text
+        ul.b-list-fields
+          - @school.teacher.each do |teacher|
+            li.item
+              = check_box_tag :teacher_ids, teacher.id, @news_model.teacher.include?(teacher), :name => 'news[teacher_ids][]'
+              = teacher.get_name
+- if !@school.section.blank?
+  .b-field
+    .b-hidden-text
+      .change-show-hidden-text
+        a href="?open" class="b-pseudo-link"
+          | Кружки
+          i class="arrow"
+      .hidden-text
+        ul.b-list-fields
+          - @school.section.each do |section|
+            li.item
+              = check_box_tag :section_ids, section.id, @news_model.section.include?(section), :name => 'news[section_ids][]'
+              = section.title

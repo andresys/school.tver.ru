@@ -1,0 +1,95 @@
+.l-page
+  .l-header
+    .l-column-964
+      .b-vertical-link-ribbon
+        a.link href="/"
+      ul.b-social-network-icons
+        li.item
+          #vk_like
+        /li.item.item-fb 
+          iframe src="//www.facebook.com/plugins/like.php?href=#{request.protocol}#{request.host_with_port}#{request.fullpath}/&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"
+        /li.item.item-twit
+          a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" width="117px" = 'Твитнуть'
+      .b-name-school.b-name-school-big
+        h1.title
+          = link_to image_tag @school.emblem.url(:medium)
+          span.title-text = @school.title
+        .full-name = @school.description
+      ul.b-main-menu.b-main-menu-index
+        li.item
+          = link_to raw('Сведения<br/> об образовательной<br/> организации'), school_static_pages_path(@school, :link => 'about'), :class => "link"
+        li.item
+          = link_to 'Обучение', school_static_pages_path(@school, :link => 'training'), :class => "link"
+        li.item
+          = link_to "Кружки и секции", school_section_path(@school, ''), :class => "link"
+        li.item
+          = link_to 'Здоровье и сервис', school_static_pages_path(@school, :link => 'health'), :class => "link"
+        li.item
+          = link_to "Жизнь школы", school_news_path(@school, ''), :class => "link"
+        li.item
+          /= link_to 'Документы', school_document_path(@school, ''), :class => "link"
+          / = link_to 'Расписание', school_static_page_path(@school, '', :link => 'schedule'), :class => "link"
+          = link_to 'Коллектив', school_teacher_path(@school, ''), :class => "link"
+      - if @school.school_index_image.size >= 1
+        .b-index-gallery
+          #fotorama-index style="float: left; margin: 0 20px 20px 0;"
+            - @school.school_index_image.each do |photo|
+              .applead__item.applead__item_1
+                .b-image-with-border-ribbon
+                  .image-with-desc
+                    = image_tag photo.image.url(:medium)
+                    .desc
+                      i.corner-ribbon-l
+                      i.corner-ribbon-r
+                      span.text = photo.title
+            / .applead__item.applead__item_3
+            /   .b-image-with-border-ribbon
+            /     .image-with-desc
+            /       img.image alt="Школа №14" src="img/tmp/school_14.jpg"
+            /       .desc
+            /         i.corner-ribbon-l
+            /         i.corner-ribbon-r
+            /         span.text У нас учились 12 победитей всероссийских олимпиад по математике и физике
+          #fotorama-arrows
+            a.link.link-prev data-action="prev" href="?prev"
+              i.arrow
+            a.link.link-next data-action="next" href="?next"
+              i.arrow
+      /.b-image-with-border
+      /  = image_tag @school.image.url(:medium)
+  .l-content.l-content-index
+    .l-column-964
+      h1.b-title-with-points
+        span.text
+          | Жизнь школы
+      - announs = @school.announcement.where("end_date >= ?", DateTime.now).last(3)
+      - if announs.count > 0
+        h2.b-title-with-line
+          span.text Ближайшие события
+        ul.b-events-list
+          - announs.each do |announcement|
+            li.item
+              h3.title
+                = link_to school_announcement_path(@school, announcement) do
+                  span.calendar
+                    span.day = Russian::strftime(announcement.start_date.to_date, "%d")
+                    = ' '
+                    span.month 
+                      = Russian::strftime(announcement.start_date.to_date, "%B")
+                  = ' '
+                  = announcement.title
+              .note = announcement.location
+      .banners
+        = render 'common/banners'
+        = render 'common/phone'
+        = render 'common/pos' unless @school.pos_id.blank?
+      .l-column-566
+        - @school.get_last_news(7).each do |news|
+          = render 'common/index_form', :news => news, :title => news.title
+      .b-gray-ribbon-dotted
+        .content
+          i.corner-l-t
+          i.corner-r-t
+          i.corner-l-b
+          i.corner-r-b
+          = link_to "Жизнь школы", school_news_path(@school, ''), :class => "gray-link"

@@ -1,0 +1,5 @@
+.l-content
+  h1 = "Список районов и школ"
+  p =' link_to "Добавить школу", :controller => "school", :action => :new
+  - @schools.each do |school|
+    p = link_to school.title, admin_school_path(school), :action => "show"

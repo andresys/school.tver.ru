@@ -1,0 +1,9 @@
+- if !page.photo.blank?
+  .b-black-with-ribbon
+    i.ribbon-l
+    i.ribbon-r
+    .gray-ribbon
+      #my-fotorama.fotorama-list
+        - page.photo.each do |photo|
+          a rel="#{photo.url(:big)}" href="#{photo.url(:big)}"
+            = image_tag photo.url(:thumb)

@@ -1,0 +1,50 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    li.item
+      = link_to title, :action => :index
+  h1 = title
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = get_error(@news_model)
+        = form_for(['admin', @school, @news_model], :validate => true) do |f|
+          .b-field
+            = f.label :title, 'Заголовок', :validate => true
+            = f.text_field :title, :class => 'b-width-486'
+          - if @news_model.class.to_s != 'Announcement'
+            .b-field
+              = f.label :news_date, 'Дата'
+              = f.date_select :news_date
+          .b-field
+            = f.label :description, "Краткое описание"
+            = rener_ckeditor(f, 'description')
+          .b-field
+            = f.label :body, "Полное описание"
+            = rener_ckeditor(f, 'body')
+
+          - if additional
+            = render additional, :f => f
+
+          = render 'admin/common/dynamic_content', :f => f
+          .b-field-with-help
+            .b-field
+              = f.label :youtube, "Ссылка на YouTube"
+              = f.text_field :youtube, :validate => {:presence => false}
+            .help
+              p Введите, пожалуйста, код вашего ролика на YouTube (состоит из цифр, букв латинского алфавита и некоторых других символов), например
+              .b-example-code-mini youtube.com/watch?v=9cKz4sCBRmk 
+              = 'или'
+              .b-example-code-mini 9cKz4sCBRmk
+            
+
+          .b-save.b-submit-interactive
+            = f.submit buttom_title, :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', :action => :index
+            - if @news_model.id
+              .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @news_model.id }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

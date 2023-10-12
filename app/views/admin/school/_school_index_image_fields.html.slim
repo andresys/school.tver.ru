@@ -1,0 +1,11 @@
+- if f.object.image_file_name.nil?
+  li.item
+    = f.file_field :image, :class => 'left'
+    = f.text_field :title, :class => 'right', :placeholder => "Название"
+- else
+  li.item.item-inline
+    .b-removing-image
+      = image_tag f.object.image.url(:medium), :class => 'image-big'
+      = f.text_field :title, :class => 'b-width-478 text'
+      = f.check_box :_destroy, :class => 'hidden'
+      = f.label :_destroy, ' ', :class => 'b-removing-icon'

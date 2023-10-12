@@ -1,0 +1,420 @@
+.finevision {
+  background-color: #f8f8f8 !important;
+  color: black !important;
+  font-size: 14px;
+  font-family: Verdana;
+}
+
+.finevision .container {
+  text-align: center;
+  padding: 0;
+}
+
+.finevision ul, .finevision ul>li {
+  display: inline-block;
+  float: none;
+  margin: 0;
+  padding: 0;
+}
+
+.finevision ul>li>* {
+  float: left;
+  line-height: 20px;
+}
+
+.finevision ul>li:before {
+  margin: 0;
+  padding: 0;
+  content: "";
+}
+
+.finevision ul>li span {
+  margin-left: 30px;
+  margin-right: 10px;
+  padding: 6px 0;
+  height: 16px;
+  white-space: nowrap;
+}
+
+.finevision ul>li:before {
+  content: "";
+}
+
+.finevision .bold {
+    font-weight: bold;
+}
+
+.finevision .white {
+  background-color: white !important;
+  color: black !important;
+  background-image: none !important;
+}
+
+.finevision .black {
+  background-color: black !important;
+  color: white !important;
+  background-image: none !important;
+}
+
+.finevision .darkblue {
+  background-color: darkblue !important;
+  color: yellow !important;
+  background-image: none !important;;
+}
+
+.finevision .s1 {
+  font-size: 0.7em;
+}
+
+.finevision .s2 {
+  font-size: 0.8em;
+}
+
+.finevision .s3 {
+  font-size: 1em;
+}
+
+.finevision button, .finevisionbutton {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: none;
+  background-color: #f8f8f8  !important;
+  color: black;
+  border-radius: 0;
+  border: 0 solid #efefef;
+  border-left-width: 1px;
+}
+
+.finevision button:last-child, .finevision button:last-child:hover {
+  border-right-width: 1px;
+}
+
+.finevision .toolbar {
+  margin-right: 70px;
+}
+
+.finevision button:hover {
+  background-color: #efefef !important;
+  border: 0 solid #efefef;
+  border-left-width: 1px;
+}
+
+.finevision .collapse {
+  display: none;
+}
+
+
+
+
+
+
+
+.finevisioncontent-on,
+.finevisioncontent-on div {
+  background-image: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  color: black;
+}
+
+.finevisioncontent-on .b-green-line span {
+  color: black !important;
+  background: none;
+  border: none;
+  text-shadow: none;
+}
+
+.finevisioncontent-on div {
+  border: none !important;
+}
+
+.finevisioncontent-on {
+  background-color: #fff !important;
+}
+
+.finevisioncontent-on .l-portal-index .l-content {
+  background: none !important;
+}
+
+.finevisioncontent-on .l-content {
+  padding: 24px 0;
+}
+
+.finevisioncontent-on .b-gray-ribbon-dotted {
+  display: none;
+}
+
+.finevisioncontent-on .b-index-gallery,
+.finevisioncontent-on .b-social-network-icons,
+.finevisioncontent-on .l-footer,
+.finevisioncontent-on .b-bridge,
+.finevisioncontent-on .b-children,
+.finevisioncontent-on .corner-l-t,
+.finevisioncontent-on .corner-r-t,
+.finevisioncontent-on .corner-l-b,
+.finevisioncontent-on .corner-r-b,
+.finevisioncontent-on .ribbon,
+.finevisioncontent-on .b-black-with-ribbon .ribbon-l,
+.finevisioncontent-on .b-black-with-ribbon .ribbon-r {
+  display: none !important;
+}
+
+.finevisioncontent-on .b-brand-tver {
+  z-index: 100;
+}
+
+
+
+
+
+
+.finevisioncontent-on.finevisioncontent-image2 img,
+.finevisioncontent-on.finevisioncontent-image2 canvas,
+.finevisioncontent-on.finevisioncontent-image2 .b-vertical-link-ribbon a,
+.finevisioncontent-on.finevisioncontent-image2 .b-tabs-area a,
+.finevisioncontent-on.finevisioncontent-image2 .b-multi-menu .item-selected,
+.finevisioncontent-on.finevisioncontent-image2 .b-brand-tver,
+.finevisioncontent-on.finevisioncontent-image2 .b-title-with-ribbon,
+.finevisioncontent-on.finevisioncontent-image2 .b-tabs a {
+  filter: url("data:image/svg+xml;utf8,&lt;svg xmlns=\'http://www.w3.org/2000/svg\'&gt;&lt;filter id=\'grayscale\'&gt;&lt;feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/&gt;&lt;/filter&gt;&lt;/svg&gt;#grayscale"); /* Firefox 10+, Firefox on Android */
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+}
+
+.finevisioncontent-on.finevisioncontent-image3 img,
+.finevisioncontent-on.finevisioncontent-image3 .fotorama,
+.finevisioncontent-on.finevisioncontent-image3 .b-brand-tver {
+  display: none !important;
+}
+
+.finevisioncontent-on.finevisioncontent-image3 .b-title-with-ribbon *,
+.finevisioncontent-on.finevisioncontent-image3 .b-tabs-area *,
+.finevisioncontent-on.finevisioncontent-image3 .b-multi-menu .item-selected *,
+.finevisioncontent-on.finevisioncontent-image3 .b-tabs * {
+  background: none !important;
+  color: black !important;
+}
+
+.finevisioncontent-on.finevisioncontent-image3 .b-multi-menu .item-selected .text {
+  border: none;
+  text-shadow: none;
+}
+
+.finevisioncontent-on.finevisioncontent-image3 .b-tabs a.selected,
+.finevisioncontent-on.finevisioncontent-image3 .b-tabs-area a.selected,
+.finevisioncontent-on.finevisioncontent-image3 .b-multi-menu .item-selected .text {
+  border: 1px dotted black;
+}
+
+.finevisioncontent-on.finevisioncontent-image3 .b-name-school img {
+  display: inline-block !important;
+}
+
+
+
+
+
+body.finevisioncontent-on.finevisioncontent-color2,
+.finevisioncontent-on.finevisioncontent-color2 .l-page,
+.finevisioncontent-on.finevisioncontent-color2 .l-content,
+.finevisioncontent-on.finevisioncontent-color2 .b-gray-ribbon-big,
+.finevisioncontent-on.finevisioncontent-color2 .l-header,
+.finevisioncontent-on.finevisioncontent-color2 .b-title-with-line span {
+  background-color: black !important;
+}
+
+.finevisioncontent-on.finevisioncontent-color2 .l-page *,
+.finevisioncontent-on.finevisioncontent-color2 .l-content * {
+  color: white !important;
+}
+
+body.finevisioncontent-on.finevisioncontent-color3,
+.finevisioncontent-on.finevisioncontent-color3 .l-page,
+.finevisioncontent-on.finevisioncontent-color3 .l-content,
+.finevisioncontent-on.finevisioncontent-color3 .b-gray-ribbon-big,
+.finevisioncontent-on.finevisioncontent-color3 .l-header,
+.finevisioncontent-on.finevisioncontent-color3 .b-title-with-line span {
+  background-color: darkblue !important;
+}
+
+.finevisioncontent-on.finevisioncontent-color3 .l-page *,
+.finevisioncontent-on.finevisioncontent-color3 .l-content * {
+  color: yellow !important;
+}
+
+#map * {
+  color: black !important;
+}
+
+.finevisioncontent-on.finevisioncontent-image3.finevisioncontent-color2 .b-tabs a.selected,
+.finevisioncontent-on.finevisioncontent-image3.finevisioncontent-color2 .b-tabs-area a.selected,
+.finevisioncontent-on.finevisioncontent-image3.finevisioncontent-color2 .b-multi-menu .item-selected .text {
+  border: 1px dotted white !important;
+  color: white !important;
+}
+
+.finevisioncontent-on.finevisioncontent-image3.finevisioncontent-color3 .b-tabs a.selected,
+.finevisioncontent-on.finevisioncontent-image3.finevisioncontent-color3 .b-tabs-area a.selected,
+.finevisioncontent-on.finevisioncontent-image3.finevisioncontent-color3 .b-multi-menu .item-selected .text {
+  border: 1px dotted yellow !important;
+  color: yellow !important;
+}
+
+.finevisioncontent-on.finevisioncontent-color2 .b-events-list .calendar {
+  background: none;
+  border: 1px dotted white !important;
+}
+.finevisioncontent-on.finevisioncontent-color3 .b-events-list .calendar {
+  background: none;
+  border: 1px dotted yellow !important;
+}
+
+
+
+
+
+.finevisioncontent-on.finevisioncontent-size2 .h-shift-49 * {
+  font-size: 16px !important;
+  line-height: 18px !important
+}
+
+.finevisioncontent-on.finevisioncontent-size3 .h-shift-49 * {
+  font-size: 20px !important;
+  line-height: 22px !important;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .b-title-with-ribbon span,
+.finevisioncontent-on.finevisioncontent-size2 .b-tabs a,
+.finevisioncontent-on.finevisioncontent-size2 .b-tabs-area a {
+  font-size: 1.1em !important;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .b-top-menu a,
+.finevisioncontent-on.finevisioncontent-size2 .l-wrapper-column a,
+.finevisioncontent-on.finevisioncontent-size2 .b-main-menu li>a,
+.finevisioncontent-on.finevisioncontent-size2 .b-name-school span,
+.finevisioncontent-on.finevisioncontent-size2 .b-name-school div.full-name,
+.finevisioncontent-on.finevisioncontent-size2 .b-events-list a,
+.finevisioncontent-on.finevisioncontent-size2 .b-events-list div.note,
+.finevisioncontent-on.finevisioncontent-size2 .h-shift-24 span,
+.finevisioncontent-on.finevisioncontent-size2 .h-shift-24 a,
+.finevisioncontent-on.finevisioncontent-size2 .h-shift-24 p,
+.finevisioncontent-on.finevisioncontent-size2 .h-shift-24 strong,
+.finevisioncontent-on.finevisioncontent-size2 .h-shift-24 div.data,
+.finevisioncontent-on.finevisioncontent-size2 .h-shift-49 span,
+.finevisioncontent-on.finevisioncontent-size2 .b-info a,
+.finevisioncontent-on.finevisioncontent-size2 .sugnature a,
+.finevisioncontent-on.finevisioncontent-size2 .sugnature div.note,
+.finevisioncontent-on.finevisioncontent-size2 .b-title-with-points span {
+  font-size: 1.2em !important;
+  line-height: 1.1em !important;
+}
+
+.finevisioncontent-on.finevisioncontent-size3 .b-title-with-ribbon span,
+.finevisioncontent-on.finevisioncontent-size3 .b-tabs a,
+.finevisioncontent-on.finevisioncontent-size3 .b-tabs-area a {
+  font-size: 1.2em !important;
+}
+
+.finevisioncontent-on.finevisioncontent-size3 .b-top-menu a,
+.finevisioncontent-on.finevisioncontent-size3 .l-wrapper-column a,
+.finevisioncontent-on.finevisioncontent-size3 .b-main-menu li>a,
+.finevisioncontent-on.finevisioncontent-size3 .b-name-school span,
+.finevisioncontent-on.finevisioncontent-size3 .b-name-school div.full-name,
+.finevisioncontent-on.finevisioncontent-size3 .b-events-list a,
+.finevisioncontent-on.finevisioncontent-size3 .b-events-list div.note,
+.finevisioncontent-on.finevisioncontent-size3 .h-shift-24 span,
+.finevisioncontent-on.finevisioncontent-size3 .h-shift-24 a,
+.finevisioncontent-on.finevisioncontent-size3 .h-shift-24 p,
+.finevisioncontent-on.finevisioncontent-size3 .h-shift-24 strong,
+.finevisioncontent-on.finevisioncontent-size3 .h-shift-24 div.data,
+.finevisioncontent-on.finevisioncontent-size3 .h-shift-49 span,
+.finevisioncontent-on.finevisioncontent-size3 .b-info a,
+.finevisioncontent-on.finevisioncontent-size3 .sugnature a,
+.finevisioncontent-on.finevisioncontent-size3 .sugnature div.note,
+.finevisioncontent-on.finevisioncontent-size3 .b-title-with-points span {
+  font-size: 1.4em !important;
+  line-height: 1.3em !important;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .b-info .b-title-17 {
+  font-size: 20px !important;
+}
+
+.finevisioncontent-on.finevisioncontent-size3 .b-info .b-title-17 {
+  font-size: 26px !important;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .title-main {
+  font-size: 45px;
+}
+
+.finevisioncontent-on.finevisioncontent-size3 .title-main {
+  font-size: 55px;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .h-shift-24 .category {
+  position: relative;
+  left: 20px;
+}
+
+.finevisioncontent-on.finevisioncontent-size3 .h-shift-24 .category {
+  position: relative;
+  left: 40px;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .b-multi-menu .item,
+.finevisioncontent-on.finevisioncontent-size2 .b-bread-crumbs .item,
+.finevisioncontent-on.finevisioncontent-size3 .b-multi-menu .item,
+.finevisioncontent-on.finevisioncontent-size3 .b-bread-crumbs .item {
+  max-width: inherit;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .b-main-menu,
+.finevisioncontent-on.finevisioncontent-size3 .b-main-menu {
+  width: 1200px;
+  position: relative;
+  right: 100px;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .b-union-menu .b-main-menu,
+.finevisioncontent-on.finevisioncontent-size3 .b-union-menu .b-main-menu {
+  width: initial;
+  position: initial;
+  right: initial;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .b-tabs-area,
+.finevisioncontent-on.finevisioncontent-size3 .b-tabs-area {
+  width: 270px;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .b-tabs-area .link,
+.finevisioncontent-on.finevisioncontent-size3 .b-tabs-area .link {
+  width: 170px;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .b-tabs-contents-areas,
+.finevisioncontent-on.finevisioncontent-size3 .b-tabs-contents-areas {
+  width: 460px;
+}
+
+.finevisioncontent-on.finevisioncontent-size2 .l-column-177,
+.finevisioncontent-on.finevisioncontent-size3 .l-column-177 {
+  width: 207px;
+}

@@ -1,0 +1,12 @@
+li.item
+  - if f.object.file_file_name.nil?
+    .h-top-5
+      .l-wrapper
+        = f.text_field :title, :placeholder => "Название", :class => 'input-left b-width-200'
+        = f.file_field :file, :class => 'input-right'
+  - else
+    .b-links-removing
+      p.h-bottom-5.title = link_to 'Ссылка на загрузку', f.object.file.url
+      = f.text_field :title, :class => 'b-width-450'
+      = f.check_box :_destroy, :class => 'hidden' 
+      = f.label :_destroy, ' ', :class => 'b-removing-icon'

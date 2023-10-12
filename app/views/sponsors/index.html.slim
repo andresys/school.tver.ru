@@ -1,0 +1,27 @@
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school, :class => 'link'
+        li.item
+          = link_to 'О школе', school_static_page_path(@school.to_param, '', :link => 'about'), :class => 'link'
+        li.item.item-selected.item-last
+          = 'Спонсоры и партнёры'
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      h1.title-main = 'Спонсоры и партнёры'
+      .h-shift-49
+        h3 = 'Спонсоры'
+        - @sponsor.find_all_by_sponsor_type('Спонсор').each do |sponsor|
+          li.item
+              = link_to sponsor.sponsor_url do 
+                = sponsor.title
+        h3 = 'Партнёры'
+        - @sponsor.find_all_by_sponsor_type('Партнер').each do |sponsor|
+          li.item
+              = link_to sponsor.sponsor_url do 
+                = sponsor.title

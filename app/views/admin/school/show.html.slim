@@ -1,0 +1,91 @@
+.l-content
+  h2.b-title-italic Заполните карточку школы
+  .l-lcolumn-816
+    .l-fcolumn-444
+      .b-white-with-border.h-bottom-54
+        .h-for-cards
+          h1.b-title-with-logo
+            = image_tag @school.emblem.url(:medium), :class => 'logo'
+            span.title = @school.title
+          .b-summary = @school.description
+          ul.b-list-with-red-notes
+            li
+              = link_to "Особенности", :action => :edit
+            li
+              = link_to "Коллектив", admin_school_teacher_path(@school, '')
+              - if @school.teacher.blank?
+                span.note (раздел не заполнен)
+            li
+              = link_to "Контакты", :action => :contact
+              -if !contact_nil
+                span.note (раздел не заполнен)
+    .l-fcolumn-334
+      .h-left-59
+        .b-gray-text-italic
+          h1.b-title-16 Приветствуем вас в системе управления сайтом вашей школы!
+          p Просим вас в первую очередь заполнить карточку школы: особенности, коллектив и контакты.
+  .l-lcolumn-780-border
+    .l-fcolumn-297
+      .h-right-50
+        h2.b-title-italic.b-title-italic-on-border Рассказывайте о жизни школы
+        ul.b-list-with-notes.b-big-list-with-notes
+          li.item
+            h3.b-title-with-icon
+              = link_to "Новости", admin_school_news_path(@school, '')
+              = link_to "", admin_school_news_path(@school, 'new'), :class => 'addition'
+            .note = get_school_news_note(@school.news)
+          li.item
+            h3.b-title-with-icon
+              = link_to "Творчество учеников", admin_school_creation_path(@school, '')
+              = link_to "", admin_school_creation_path(@school, 'new'), :class => 'addition'
+            .note = get_school_news_note(@school.creation)
+          li.item
+            h3.b-title-with-icon
+              = link_to "Анонсы событий", admin_school_announcement_path(@school, '')
+              = link_to "", admin_school_announcement_path(@school, 'new'), :class => 'addition'
+            .note = get_school_news_note(@school.announcement)
+          li.item
+            h3.b-title-with-icon
+              = link_to "Объявления родителям", admin_school_announce_to_parent_path(@school, '')
+              = link_to "", admin_school_announce_to_parent_path(@school, 'new'), :class => 'addition'
+            .note = get_school_news_note(@school.announce_to_parent)
+    .l-fcolumn-297
+      .h-right-50 
+        h2.b-title-italic.b-title-italic-on-border Обновляйте
+        ul.b-list-with-notes
+          li.item
+            h3.title
+              = link_to 'О школе', admin_school_page_group_path(@school, :link => 'about')
+            .note = get_last_update_pages('about')
+          li.item
+            h3.title
+              = link_to 'Обучение', admin_school_page_group_path(@school, :link => 'training')
+            .note = get_last_update_pages('training')
+          li.item
+            h3.title
+              = link_to "Кружки и секции", admin_school_section_path(@school, '')
+            .note = get_section_size_to_s(@school.section)
+          li.item
+            h3.title
+              = link_to 'Здоровье и сервис', admin_school_page_group_path(@school, :link => 'health')
+            .note = get_last_update_pages('health')
+          /*li.item
+            h3.title              
+                |Расписание
+            /   .note (Последнее обновление 2 февраля)
+    .l-fcolumn-186
+      h2.b-title-italic.b-title-italic-on-border Заполняйте
+      ul.b-menu
+        li
+          = link_to 'Методические материалы', admin_school_methodic_document_path(@school, ''), :class => 'addition'
+        li
+          = link_to 'Методические объединения', admin_school_methodic_path(@school, ''), :class => 'addition'
+        li
+          = link_to 'Упоминания в СМИ', admin_school_media_link_path(@school, ''), :class => 'addition'
+        li
+          = link_to 'Спонсоры и партнёры', :action => :sponsors
+        li
+          = link_to 'Документы', admin_school_folder_path(@school, @folder), :class => 'addition'
+        li
+          = link_to 'Ежедневное меню горячего питания', admin_school_food_path(@school, ''), :class => 'addition'
+

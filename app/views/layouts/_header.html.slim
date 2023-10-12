@@ -1,0 +1,23 @@
+.l-page
+  .l-header
+    .b-union-menu
+      .b-name-school
+        h1.title
+          = link_to @school do 
+            = image_tag @school.emblem.url(:medium), :class => 'image'
+            span.title-text = @school.title
+        .full-name = @school.description
+      ul.b-main-menu
+        li.item
+          = link_to raw('Сведения<br> об образовательной<br> организации'), school_static_pages_path(@school.to_param, :link => 'about'), :class => 'link'
+        li.item
+          = link_to 'Обучение', school_static_pages_path(@school, :link => 'training'), :class => 'link'
+        li.item.right-147
+          = link_to "Кружки и секции", school_section_path(@school, ''), :class => 'link'
+        li.item.left-147
+          = link_to 'Здоровье и сервис', school_static_pages_path(@school, :link => 'health'), :class => 'link'
+        li.item.item
+          = link_to "Жизнь школы", school_news_path(@school, ''), :class => 'link'
+        li.item.item-last
+          /= link_to 'Документы', school_document_path(@school, ''), :class => "link"
+          = link_to 'Коллектив', school_teacher_path(@school, ''), :class => "link"

@@ -1,0 +1,44 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    -@folder.parent_list.each do |folder|
+      li.item
+        = link_to folder.title, admin_school_folder_path(@school,folder)
+    li.item-selected.item-last
+      = link_to @folder.title, admin_school_folder_path(@school,@folder)
+  h1 = 'Документы'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = get_error(@doc)
+        = form_for(['admin', @school, @folder, @doc],:validate => true) do |f|
+          .b-field
+            = f.label :title, 'Название'
+            = f.text_field :title, :class => 'width-486'
+          .b-field-with-help
+            .b-field
+              = f.label :file, 'Документ'
+              = f.file_field :file
+            .help.help-height-20 = 'Максимальный размер загружаемого файла не должен превышать 10 мегабайт.'
+          .b-field
+            = f.label :parent_id, 'Папка'
+            = f.select "parent_page_id", options_from_collection_for_select(@school.folder, "id", "title", @folder.id)
+
+
+            /= f.check_box :parent_id, :class => 'width-486'
+          - if !@doc.file_file_name.nil?
+            .b-field
+              = f.label :file, 'Скачать'
+              = link_to f.object.file.url do
+                /*= image_tag f.object.small_icon_for
+                = @doc.title
+          .b-save.b-submit-interactive 
+            = f.submit buttom_title, :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', admin_school_folder_path(@school, @folder)
+            - if @doc.id
+              .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @doc.id }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

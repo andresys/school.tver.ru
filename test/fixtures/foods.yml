@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 2021-09-27
+  type: 1
+  file: 
+
+two:
+  date: 2021-09-27
+  type: 1
+  file: 

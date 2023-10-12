@@ -1,0 +1,13 @@
+- if !@teacher_groups.blank?
+  h3.h-bottom-10 Учителя и сотрудники
+  - @teacher_groups.each do |group| 
+    .b-field
+      / h3.h-bottom-10 = group.title  
+      ul.b-list-fields 
+        - group.teacher.each do |teacher|
+          li.item
+            -if teacher.news_link.blank?
+              = check_box_tag 'teachers['+teacher.id.to_s+']'
+            - else
+              = check_box_tag 'teachers['+teacher.id.to_s+']', 'yes', true
+            = label_tag('teachers['+teacher.id.to_s+']', teacher.get_name)

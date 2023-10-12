@@ -1,0 +1,38 @@
+.l-content
+  .l-column-700
+    /.h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school, :class => 'link'
+        li.item
+          = link_to 'О школе', school_static_page_path(@school.to_param, '', :link => 'about'), :class => 'link'
+        li.item.item-selected.item-last
+          = 'Документы'
+    h2.b-title-with-points
+      span.text Документы  
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      /h1.title-main = 'Документы'
+      /.h-shift-49
+      .h-full-shift-49
+        ul.b-big-list-docs
+          - @folder.children.each do |folder|
+            li.item
+              = image_tag "file_icons/folder.png", :class => 'image'
+              h3.title = link_to school_document_path(@school, folder), :class => 'link' do
+                span.text = folder.title
+          - @folder.document.each do |doc|
+            li.item
+              = image_tag doc.icon_for, :class => 'image'
+              h3.title = link_to doc.file.url, :class => 'link' do
+                span.text = doc.title
+              /*span.text = doc.description
+              .desc
+                - if Time.now.year != doc.updated_at.year
+                  span.data = Russian::strftime(doc.updated_at.to_date, "%d %B %Y")
+                - else
+                  span.data = Russian::strftime(doc.updated_at.to_date, "%d %B")
+                span.size = ', ' + number_to_human_size(doc.file_file_size)

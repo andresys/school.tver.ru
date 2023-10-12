@@ -1,0 +1,41 @@
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school
+        li.item
+          = link_to static_page_title(@page.page_group.content_type), school_static_page_path(@school,'', :link => @page.page_group.content_type)
+        li.item.item-selected.item-last
+          = link_to @page.title
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      h1.title-main = @page.title
+      = render 'layouts/photo_gallery', :page => @page
+      .h-shift-49
+        = raw(@page.body)
+  .l-column-700
+    .h-shift-49
+      ul.b-list-docs
+        - @page.document.each do |doc|
+          li.item
+              = link_to doc.file.url, :class => 'link' do
+                = image_tag doc.icon_for
+                br
+                span.text = doc.title
+              span.size = number_to_human_size(doc.file_file_size)
+      - if !@page.simply_link.blank?
+        .b-gray-ribbon-dotted
+          .content
+            i.corner-l-t
+            i.corner-r-t
+            i.corner-l-b
+            i.corner-r-b
+            h2.title Смотрите также
+            ul.b-list-diamonds
+              - @page.simply_link.each do |link|
+                li.item
+                  = link_to link.link_title, link.link_url

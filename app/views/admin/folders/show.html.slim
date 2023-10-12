@@ -1,0 +1,54 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    -@folder.parent_list.each do |folder|
+      li.item
+        = link_to folder.title, admin_school_folder_path(@school,folder)
+    li.item-selected.item-last
+      = link_to @folder.title, admin_school_folder_path(@school,@folder)
+  h1.h-bottom-30 = 'Документы'
+  .l-column-600
+    .b-with-left-content
+      .left-content
+        .b-add.b-add-mini
+          = link_to :action => 'new', :parent => @folder do 
+            .addition
+              .text 
+                = 'Добавить папку'
+          span.text = 'Добавить папку'
+        /= render 'admin/layouts/add_buttom', :buttom_title => 'Добавить папку'
+        
+        .b-add.b-add-mini
+          = link_to admin_school_folder_document_path(@school, @folder, 'new') do 
+            .addition
+              .text 
+                = 'Добавить документ'
+          span.text = 'Добавить документ'
+
+      - if !@folder.parent.nil?
+        .b-white-with-border.h-shift-16
+          .b-docs
+            h2.title 
+              = link_to :action => :show, :id => @folder.parent.id do
+                = image_tag "file_icons/folder.png", :class => 'image'
+                span.title = ".. (Назад)"
+      - @folder.children.each do |folder|
+        .b-white-with-border.h-shift-16
+          .b-docs
+            h2.title 
+              = link_to :action => :show, :id => folder.id do
+                = image_tag "file_icons/folder.png", :class => 'image'
+                span.title = folder.title
+            = link_to :action => :edit, :id => folder.id do
+              p.summary = "Редактировать"
+      - @folder.document.each do |doc|
+        .b-white-with-border.h-shift-16
+          .b-docs
+            h2.title 
+              = link_to edit_admin_school_folder_document_path(@school, @folder, doc) do
+                = image_tag doc.small_icon_for, :class => 'image'
+                span.title = doc.title
+            p.summary = '(загружен '+Russian::strftime(doc.updated_at, "%d %B %Y")+')'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

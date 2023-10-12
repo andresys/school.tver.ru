@@ -1,0 +1,24 @@
+- if !@next_page.nil?
+	.HAVE_NEXTPAGE
+- if !@news_data.nil?
+	.FORJS
+	- @news_data.each do |news_data|
+	  .b-event
+	    .b-gray-ribbon-big
+	      i.corner-l-t
+	      i.corner-r-t
+	      i.corner-l-b
+	      i.corner-r-b
+	      .h-shift-24
+	        .b-green-line
+	          i.ribbon
+	          span.text = "Анонсы событий"	        
+	        .category
+	          span.category-data = anons_datetime(news_data)
+	          span.summary = news_data.location
+	        h3.title-event
+	          = link_to news_data.title, :action => :show, :id => news_data
+	        = raw(news_data.description)
+	        = render_three_photo(news_data)
+	        = get_youtube_video(news_data)
+	.FORJS

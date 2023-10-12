@@ -1,0 +1,86 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    li.item
+      = link_to 'Коллектив', admin_school_teacher_path(@school, '') 
+  h1 Сотрудник
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = form_for(['admin', @school, @teacher], :validate => true) do |f|      
+          = get_error(@teacher)
+          .b-field
+            .l-fcolumn-132
+              / - @error.errors.get(:surname).each do |msg|
+              /   li = msg
+              = f.label :surname, 'Фамилия'
+              = f.text_field :surname, :size => 13, :class => 'width-132'
+            .l-fcolumn-132
+              = f.label :name, 'Имя и отчество'
+              = f.text_field :name, :size => 22, :class => 'width-194'
+          .b-field-with-help
+            .b-field
+              = f.label :post, 'Должность'
+              = f.text_field :post, :size => 58, :class => 'b-width-486'
+            .help.help-height-20
+              p.h-bottom-5 Занимаемые должности. Аббревиатуры можно расшифровать с помощью подсказки, оформленной следующим образом:
+              .b-example-code-mini = "Заместитель директора по <abbr title='Учебно-воспитательная работа'>УВР</abbr>, учитель географии"
+          .b-field
+            = f.label :teacher_group, 'Группа'
+            - if f.object.teacher_group
+              = f.select "teacher_group_id", options_from_collection_for_select(@school.teacher_group, "id", "title", f.object.teacher_group.id)
+            - else
+              = f.select "teacher_group_id", options_from_collection_for_select(@school.teacher_group, "id", "title")
+          .b-field-with-help
+            .b-field
+              = f.label :photo, 'Фотография'
+              - if @teacher.photo_file_name
+                .b-removing-image.image-float
+                  = image_tag @teacher.photo.url(:thumb), :class => 'image-wsize'
+                  = f.check_box :delete_photo, :class => 'hidden'
+                  = f.label :delete_photo, :class => 'b-removing-icon'
+              -else
+                = f.file_field :photo, :class => 'input-center'
+              
+              / = f.label :photo_destroy, ' ', :class => 'b-removing-icon'
+            .help
+              p Чтобы страница лучше смотрелась, выбирайте вертикальные фотографии, на которых изображено лицо человека.
+              .image
+                img alt="Пример загружаемого изображения" src="/assets/example/image-2.png" 
+          .b-field
+            = f.label :experience, 'Стаж'
+            = f.text_field :experience, :size => 9
+          .b-field
+            = f.label :clafication, 'Квалификация'
+            = f.text_field :clafication, :size => 9
+          .b-field
+            = f.label :about_school, 'Информация о сотруднике'
+            = rener_ckeditor(f, 'about_teacher')
+          .b-field-with-help
+            .b-field
+              = f.label :contact ,"Контакты"
+              = rener_ckeditor(f, 'contact')
+            .help
+              p Телефон, электронная почта, рабочий кабинет или любая другая контактная информация.
+          .b-field-with-help
+            .b-field
+              = f.label :achiev, "Достижения"
+              = rener_ckeditor(f, 'achiev')
+            .help
+              p Здесь вы можете указать особые достижения учителя.
+          / = f.label :methodic_document, 'Документы
+          / .b-field
+          /     ul.b-list-files   
+          /       = f.fields_for :methodic_document do |builder|
+          /         = render 'document_fields', :f => builder
+          /       li.item.b-adding-file = link_to_add_fields "Добавить еще документ", f, :methodic_document, ''
+          .b-save.b-submit-interactive
+            = f.submit buttom_title, :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', :action => :index
+            - if @teacher.id
+              .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @teacher.id }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

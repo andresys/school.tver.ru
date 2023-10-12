@@ -1,0 +1,4 @@
+.fotorama-news.fotorama-list
+	- data.photo.first(3).each do |photo|
+	  a rel="#{photo.url(:big)}" href="#{photo.url(:big)}"
+	    = image_tag photo.url(:thumb)

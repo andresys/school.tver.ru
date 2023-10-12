@@ -1,0 +1,44 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  /  li.item
+     / = link_to get_static_page_title_from_edit, admin_school_static_page_path(@school,   :link => get_page_group_title)
+  / h1 = get_static_page_title_from_edit
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = get_error(@page)
+        = form_for(['admin', @school, @page], :validate => true) do |f|
+          = hidden_field 'groups', 'group_id', :value => params[:group_id]
+          .b-field-with-help
+            .b-field
+              = f.label :title, 'Название'
+              = f.text_field :title
+            .b-field
+              = f.label :body, 'Полный текст'
+              = rener_ckeditor(f, 'body')
+            .help
+              p = "Если вы знакомы с HTML, можно разнообразить текст:"
+              ul.b-tabs-examples
+                li.item.item-open
+                  h3.title
+                    a.link href="#exapmle-1" = "Правой контекстной колонкой"
+                  .b-tabs-examles id="#exapmle-1"
+                    .b-example-code-mini = '<div class="b-with-context"><div class="text"> Абазац </div><div class="context"> Контекст </div></div>'
+                li.item.item-close
+                  h3.title
+                    a.link href="#exapmle-2" = "Цитатой с подписью"
+                  .b-tabs-examles id="#exapmle-2"
+                    .b-example-code-mini = '<blockquote class="b-quote-big"><span class="text">«Текст цитаты».</span><span class="signature">Подпись</span></blockquote>'
+                li.item.item-close.item-last
+                  h3.title
+                    a.link href="#exapmle-3" = "Изображением с подписью"
+                  .b-tabs-examles id="#exapmle-4"
+                    .b-example-code-mini= '<div class="b-image-with-signature"><img alt="" src="Путь к файлу"><span class="signature">Текст подписи</span></div>'
+
+          = render 'admin/common/dynamic_content', :f => f
+          .b-save
+            = f.submit "Сохранить"
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

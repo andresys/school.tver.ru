@@ -1,0 +1,19 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1.h-bottom-30 = 'Методические материалы'
+  .l-column-600
+    .b-with-left-content
+      .left-content
+        = render 'admin/layouts/add_buttom', :buttom_title => 'Добавить материал'
+      - @doc.each do |doc|
+        .b-white-with-border.h-shift-16
+          .b-docs
+            h2.title 
+              = link_to :action => :edit, :id => doc.id do
+                = image_tag doc.small_icon_for, :class => 'image'
+                span.title = doc.title
+            p.summary = 'Загружен '+Russian::strftime(doc.date, "%d %B %Y")
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

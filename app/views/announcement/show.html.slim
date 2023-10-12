@@ -1,0 +1,6 @@
+= content_for :announcement_date_location do
+  .b-category
+    span.category-data = anons_datetime(@news_data)
+    span.summary = @news_data.location
+
+= render "common/news_show_pattern", :title => 'Анонсы событий'

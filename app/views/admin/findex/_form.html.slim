@@ -1,0 +1,34 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    li.item
+      = link_to 'Ежедневное меню горячего питания', :controller => :foods, :action => :index
+  h1 = 'Ресурсы горячего питания'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = get_error(@findex)
+        = form_for(['admin', @school, @findex], :url => url_for(:controller => :findex, :action => :change), :validate => true) do |f|
+          .b-field
+            .help.help-height-20
+              ' Заполните файл из шаблона и загрузите его на портал.
+              - unless @findex.file_file_name.nil?
+                ' Либо отредактируйте последний загруженный
+                = link_to 'файл', @findex.file.url, :class => 'link'
+                | .
+          .b-field-with-help
+            .b-field
+              = f.label :file, 'Файл findex'
+              = f.file_field :file
+            .help.help-height-20 = raw 'Размещаемый на  сайте файл findex в виде  электронной таблицы. Есть ограничение на размер файла — до 10 мегабайт. Шаблон для заполнения можно скачать <a href="/findex.xlsx">тут</a>.'
+          
+          .b-save.b-submit-interactive
+            = f.submit buttom_title, :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', :controller => :foods, :action => :index
+            /- if @findex.id
+              .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @findex.id }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

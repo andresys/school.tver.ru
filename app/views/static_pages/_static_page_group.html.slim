@@ -1,0 +1,10 @@
+- if group.page_navigation_link.any? { |page| !page.get_last_update.blank? }
+  .b-info
+    h3.b-title-17 = group.title
+    .content
+      = image_tag group.image.url(:size)
+      ul.info-menu
+        - group.page_navigation_link.each do |link|
+          - if !link.get_last_update.blank?
+            li.item
+              = link_to link.title, "/school/#{@school.permalink}/"+link.link, :class => :link

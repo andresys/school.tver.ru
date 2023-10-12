@@ -1,0 +1,16 @@
+/= f.text_field :title, :placeholder => "Название документа"
+/= f.text_field :description, :placeholder => "Краткое описание"
+- if f.object.file_file_name.nil?
+  li.item
+    = f.text_field :title, :placeholder => "Название", :class => 'left-file'
+    = f.file_field :file
+- else
+  li.item-change
+    .b-removing-files
+      = image_tag f.object.small_icon_for, :class => 'image'
+      = f.text_field :title , :class => 'title'
+      = f.check_box :_destroy, :class => 'hidden'
+      = f.label :_destroy, ' ', :class => 'b-removing-icon'
+      
+      /= f.label :'Название'
+      /p = link_to 'Ссылка на загрузку', f.object.file.url

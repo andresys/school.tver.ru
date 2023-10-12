@@ -1,0 +1,15 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1.h-bottom-30 = title
+  .l-column-600
+    .b-with-left-content
+      .left-content
+        = render 'admin/layouts/add_buttom', :buttom_title => buttom_title
+      - @news_models.each do |news_model|
+        .b-white-with-border.h-shift-16
+          h2.title = link_to news_model.title, :action => :edit, :id => news_model.id
+          = raw(news_model.description)
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

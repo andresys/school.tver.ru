@@ -1,0 +1,27 @@
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school, :class => 'link'
+        li.item
+          = link_to 'Обучение', school_static_page_path(@school.to_param, '', :link => 'training'), :class => 'link'
+        li.item.item-selected.item-last
+          = link_to 'Методические материалы', school_methodic_document_path(@school, '')
+      .b-read-article
+        h2.title = @doc.title 
+        .desc = 'Aвтор: ' + @doc.teacher.get_name + ', ' + methodic_date(@doc.date)
+
+  .b-show-docs
+    .file-block
+      iframe src="//docs.google.com/viewer?url=http://#{request.host + @doc.file.url}&amp;embedded=true" height="1192" width="880"
+  ul.b-list-docs
+    li.item
+      = link_to @doc.file.url, :class => 'link' do
+        = image_tag @doc.icon_for, :class => 'icon'
+        span.text = @doc.title 
+        span.size = number_to_human_size(@doc.file_file_size)
+        /*a href="https://docs.google.com/viewer?url=#{@doc.file.url}&module=files" = 'dfdfsdfgd'
+          /*a href="https://docs.google.com/viewer?url=#{@doc.file.url}&module=files" = 'dfdfsdfgd'
+          /*http://#{request.host + @doc.file.url}
+        / p = link_to @doc.parent_page.methodic.title, school_methodic_path(@school, @doc.parent_page.methodic)

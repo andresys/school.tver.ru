@@ -1,0 +1,22 @@
+.b-field      
+    = f.label :photo,   'Фотографии'
+    ul.b-list-files
+      = f.fields_for :photo do |builder|
+        = render 'admin/layouts/photo_fields', :f => builder
+      li.item.b-adding-file = link_to_add_fields "Добавить еще фотографию", f, :photo, 'admin/layouts/'
+
+.b-field-with-help
+  .b-field
+    = f.label :document, 'Документы'
+    ul.b-list-files   
+      = f.fields_for :document do |builder|
+        = render 'admin/layouts/document_fields', :f => builder
+      li.item.b-adding-file = link_to_add_fields "Добавить еще документ", f, :document, 'admin/layouts/'
+  .help
+    p = "Обратите внимание! После загрузки файла в систему его имя меняется на числовой код, поэтому если вы загружаете документы, то после сохранения страницы зайдите сюда еще раз - вы сможете отредактировать их названия."
+.b-field 
+  = f.label :simply_link, 'Смотрите также'
+  ul.b-parallel-input
+    = f.fields_for :simply_link do |builder|
+      = render 'admin/layouts/simply_link_fields', :f => builder
+    li.item.b-adding-file = link_to_add_fields "Добавить еще ссылку", f, :simply_link, 'admin/layouts/'

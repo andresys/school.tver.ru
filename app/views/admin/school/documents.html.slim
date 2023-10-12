@@ -1,0 +1,23 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1 = 'Документы'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = form_for @school, :url => { :action => :update, :id => @school.permalink}, :method => :put, :validate => true do |f|
+          .b-field  
+            = f.label :document,'Документы'
+            ul.b-list-files 
+              = get_error(@school)
+              = f.fields_for :document do |builder|
+                = render 'document_fields', :f => builder
+              li.item.b-adding-file = link_to_add_fields "Добавить ещё документ", f, :document, ''
+          .b-save.b-submit-interactive
+            = f.submit "Сохранить", :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', admin_school_path(@school)
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

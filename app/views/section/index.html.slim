@@ -1,0 +1,28 @@
+
+/ p = 
+/ p = link_to page.title, school_section_path(@school, page)
+/ p = 'С ' + page.year + ' года'
+
+.l-content
+  .l-column-846
+    h2.b-title-with-points
+      span.text Кружки и секции
+    ul.b-list-decorative.b-list-decorative-line
+      - @sections.each do |section|
+        li.item
+          .b-gray-ribbon-big
+            i.corner-l-t
+            i.corner-r-t
+            i.corner-l-b
+            i.corner-r-b
+            .sugnature
+              -if !section.type_of_section.blank?
+                .b-green-line.b-green-line-mini
+                  i.ribbon
+                  span.text
+                    = section.type_of_section
+              h4.title
+                = link_to school_section_path(@school, section) do
+                  = image_tag section.image.url(:medium)
+                  = section.title
+              .note = '~ с ' + section.year + ' года ~'

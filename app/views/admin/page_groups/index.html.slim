@@ -1,0 +1,45 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1 = static_page_title(params[:link])
+  p.b-gray-text Страйтесь наполнять разделы текстами, написанными для обычных людей. Если у вас есть формальный документ, предназначенный для Управления образования, лучше прикрепите его как документ для скачивания. Не старайтесь заполнить все разделы сразу. Пока раздел не заполнен, он не отображается в меню сайта.
+  = form_tag("/admin/school/#{@school.permalink}/page_groups/navigation", :class => 'b-form-sortable') do |f|
+    ul.b-page-group
+      - @group.each do |group|
+        li.item-page id="#{group.id}"
+          /h3 = group.id
+          /h3 = group.number
+          i.b-sortable
+          = link_to admin_school_page_group_path(@school, group.id.to_s+'/edit'), :class => 'link-wimage' do
+            h2.title-page = group.title
+            span = image_tag group.image(:size), :class => 'image'
+          ul.b-list-with-notes.b-inner-sortable
+            - group.page_navigation_link.each do |link|
+              li.item id="#{link.id}"
+                h3.title = link_to link.title, link.link
+                .note 
+                  = last_update_link(link)
+                i.b-inner-sort-icon
+
+          = link_to admin_school_static_page_path(@school, 'new', :group_id => group.id), :class => 'b-add-plus' do
+            span.icon-add = '+'
+            span.text = 'Добавить'
+
+    .h-page-group
+      = link_to admin_school_page_group_path(@school, 'new', :link => params[:link]), :class => 'b-add-plus' do
+        span.icon-add = '+'
+        span.text = 'Новая группа страниц'
+      .b-enable-sorting
+        a.link href="?sort"
+          i.b-icon-sort
+          span.text = "Изменить порядок новых страниц"
+        .b-save.hidden
+          = 
+          input.ajax_submit type="submit" value="Сохранить" name="commit"
+          |  или 
+          span.b-lblack
+            = link_to  "Отмена", request.original_url
+
+    .b-back
+      = link_to 'Назад в панель управления', admin_school_path(@school)

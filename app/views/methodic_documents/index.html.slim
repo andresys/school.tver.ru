@@ -1,0 +1,100 @@
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school, :class => 'link'
+        li.item
+          = link_to 'Обучение', school_static_page_path(@school.to_param, '', :link => 'training'), :class => 'link'
+        li.item.item-selected.item-last
+          = 'Методические материалы'
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      h1.title-main = 'Методические материалы'
+      .h-shift-49
+        ul.b-list-padding-174
+          - @methodics.each do |methodic|
+            - if !methodic.methodic_document.blank?    
+              li.item
+                .b-divider-with-line
+                  i.divider
+                .main-area
+                  h3.left-content = methodic.title
+                  - methodic.methodic_document.first(3).each do |doc|
+                    ul.b-list-with-icon
+                      li.item
+                        = image_tag doc.icon_for, :class => 'icon'
+                        h4.title = doc.title 
+                        .summary 
+                          = raw(doc.description)
+                        .desc 
+                          span = link_to doc.teacher.get_name, school_teacher_path(@school, doc.teacher)
+                          | , 
+                          span = methodic_date(doc.date)
+                        .download
+                          = link_to 'Посмотреть', school_methodic_document_path(@school, doc)
+                          |  или 
+                          = link_to 'Скачать', doc.file.url
+                          = " (" + number_to_human_size(doc.file_file_size) + ")"
+                - if methodic.methodic_document.size > 3
+                  .b-gray-ribbon-dotted.b-gray-ribbon-dotted-white
+                    .content
+                      i.corner-l-t
+                      i.corner-r-t
+                      i.corner-l-b
+                      i.corner-r-b
+                      = link_to 'Все материалы объединения', school_methodic_path(@school, methodic), :class => 'gray-link'    
+        - teachers_without_methodic
+        - if !@doc.blank?
+          //h1 = 'учителя без методических объденений'
+          ul.b-list-padding-174
+            li.item
+              .b-divider-with-line
+                i.divider
+              .main-area
+                h3.left-content = 'Материалы учителей, не состоящих в методических объединениях'
+                - @doc.first(3).each do |doc|
+                  ul.b-list-with-icon
+                    li.item
+                      = image_tag doc.icon_for, :class => 'icon'
+                      h4.title = doc.title 
+                      p.summary = raw(doc.description)
+                      .desc 
+                        span = link_to doc.teacher.get_name, school_teacher_path(@school, doc.teacher)
+                        | , 
+                        span = methodic_date(doc.date)
+                      .download
+                        = link_to 'Посмотреть', school_methodic_document_path(@school, doc)
+                        |  или 
+                        = link_to 'Скачать', doc.file.url
+                        = " (" + number_to_human_size(doc.file_file_size) + ")"
+            - if @doc.size > 3
+              .b-gray-ribbon-dotted.b-gray-ribbon-dotted-white
+                .content
+                  i.corner-l-t
+                  i.corner-r-t
+                  i.corner-l-b
+                  i.corner-r-b
+                  = link_to 'Все материалы объединения', school_methodic_path(@school, :action => :show, :id => 'none'), :class => 'gray-link'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

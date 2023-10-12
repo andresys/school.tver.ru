@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    / meta content="text/html; charset=utf-8" http-equiv="content-type"
+    title Административный интерфейс Управления образования
+    = stylesheet_link_tag "admin/application"
+    = javascript_include_tag "admin/application"
+    = csrf_meta_tags
+  body
+    .l-header
+      .l-column-780
+        .l-float-left
+          h1.b-title-in-header Управление учётными записями и школами
+          .b-lblack
+            = link_to 'Перейти на сайт', '/'
+        .b-user
+          .name-user
+            | Вы вошли как 
+            = current_admin.admin_name
+            span.desc.b-black
+              = link_to 'Администраторы Управления образования', root_admin_path('')
+          .left-link.b-black 
+            = link_to 'Выход', destroy_admin_session_path, :method => :delete, :class => 'link'
+    = yield

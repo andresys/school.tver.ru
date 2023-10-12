@@ -1,0 +1,21 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', '/root/'
+  h1.h-bottom-30 = 'Управление школами'
+  .b-with-left-content
+    .left-content
+      .b-add.b-add-mini
+        = link_to '', root_school_path('new'), :class => 'addition'
+        span.text Новая школа
+    .l-column-540
+      -if @schools
+        - @schools.each do |school|
+          = content_tag :div, class: "b-white-with-border h-shift-16", style: (school.archive ? "background-color: lightgray" : "") do
+            h2.main-title
+              = link_to :action => :edit, :id => school.permalink do
+                = school.title
+            p.b-black = link_to root_school_user_path(school, '') do
+              = 'Учётные записи'
+  .b-back
+    = link_to 'Назад в панель управления', '/root/'

@@ -1,0 +1,24 @@
+.finevision
+  .container
+    = content_tag :ul, class: ["toolbar", !finevision? ? "collapse" : nil].compact.join(' ') do
+      li
+        span.bold Размер шрифта:
+        button.s1.bold type="button" onclick="finevision.size(1)" A
+        button.s2.bold type="button" onclick="finevision.size(2)" A
+        button.s3.bold type="button" onclick="finevision.size(3)" A
+
+      li
+        span.bold Цвет сайта:
+        button.white.bold type="button" onclick="finevision.color(1)" Ц
+        button.black.bold type="button" onclick="finevision.color(2)" Ц
+        button.darkblue.bold type="button" onclick="finevision.color(3)" Ц
+        
+      li
+        span.bold Изображения:
+        button type="button" onclick="finevision.image(1)" Цвет
+        button type="button" onclick="finevision.image(2)" Ч/б
+        button type="button" onclick="finevision.image(3)" Выкл
+
+    ul
+      li
+        = finevision_button

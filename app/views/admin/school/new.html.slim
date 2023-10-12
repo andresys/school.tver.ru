@@ -1,0 +1,28 @@
+/ .l-content
+/   .l-lcolumn-540
+/     .b-white-with-border
+/       .h-for-form
+/         = form_for :school, :url => {:action => :create } do |f|
+/           .b-field-with-help
+/             .b-field
+/               = f.label :title,"Название школы"
+/               = f.text_field :title, :class => 'width-136'
+/             p.help = "Короткое название школы, которое отличает вас от других школ. Например, «Школа №14», «Гимназия №12»."
+/           / .b-field
+/           /   = f.label :"Краткое описание школы"
+/           /   = f.text_area :description, :class => 'width-482' 
+/           / .b-field
+/           /   = f.label :"Изображение школы"
+/           /   = f.file_field :image
+
+/           / .b-field
+/           /   = f.label :"Герб школы"
+/           /   = f.file_field :emblem
+/           .b-field
+/             = f.label :district,'Район'
+/             = select_tag "district", options_from_collection_for_select(District.all, "id", "title")
+/           .b-save
+/             = f.submit "Добавить школу"
+/             |  или 
+/             span.b-lblack
+/               = link_to 'Отмена', admin_school_path('')

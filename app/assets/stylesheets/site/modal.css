@@ -1,0 +1,82 @@
+*{
+	margin:0;
+	padding:0;
+}
+.piro_html {position:absolute; top:0; left:0; padding:0; width:500px; height: 500px; margin:0; display:block; padding:0; z-index:150001; padding:0;  }
+.piro_html table,.piro_html tbody,.piro_html tr,.piro_html th,.piro_html td{margin:0;padding:0;border:none;}
+.piro_html img{ margin:0; padding:0; border:none;}
+
+.piro_html .h_t_l{ width:10px; height:10px; background: url(/assets/modal/caption.png);}
+.piro_html .h_t_r{ width:10px; height:10px; background: url(/assets/modal/caption.png);}
+.piro_html .h_t_c{ cursor:move; height:10px;background: url(/assets/modal/caption.png);}
+
+.piro_html .h_c_l{width:10px; background: url(/assets/modal/caption.png); }
+.piro_html .h_c_c{background: url(/assets/modal/caption.png);margin:0; padding:0;}
+.piro_html .h_c_c .div_reg{ background: url(/assets/modal/caption.png); width:480px; overflow:hidden; height:480px; margin:0; padding:0; }
+.piro_html .h_c_c .div_reg img{ cursor:move;}
+.piro_html .h_c_r{width:10px; background: url(/assets/modal/caption.png);}
+
+.piro_html .h_b_c{ cursor:move; height:10px;background: url(/assets/modal/caption.png);}
+.piro_html .h_b_l{ width:10px; height:10px;background: url(/assets/modal/caption.png);}
+.piro_html .h_b_r{ width:10px; height:10px;background: url(/assets/modal/caption.png);}
+
+.piro_overlay{position:fixed; top:0; left:0; width:100%; height:100%;  z-index:150000;background:#fff;display:none; cursor:pointer;}
+.piro_loader{position:absolute;top:50%;left:50%;margin:-59px 0 0 -59px;width:118px;height:118px;display:block;z-index:150005;  cursor:pointer; }
+.piro_loader span{position:absolute;top:50%;left:50%;margin-top:-36px;margin-left:-36px;width:72px;height:72px;display:block;z-index:150009; background: url(/assets/modal/loadinfo.gif) center top no-repeat; }
+.piro_title{position:fixed; background: url(/assets/modal/bg_title.png) bottom repeat-x;top:0;left:0;width:100%; text-align:center;display:block; padding:6px 0 10px 0; color:white; z-index:150000; font-size:18px; display:none;}
+.btn_info{position:absolute;bottom:-7px;right:-7px;width:25px; height:25px;margin:0;display:block; padding:0px; color:black; cursor:pointer; background: url(/assets/modal/b_w/info.png) no-repeat; z-index:1500440}
+.caption{position:absolute;bottom:10px;left:10px;margin:0;display:block; padding:0px; color:black; cursor:text; background: url(/assets/modal/caption.png); z-index:150018}
+.caption p{ display:block; margin:0;padding:7px 5px; text-align:center; font-weight:normal; font-size:14px; color:white; z-index:150019; color:white;}
+
+.nav_container{bottom:-20px; right:0;z-index:1500190000000;}
+.piro_close{background: url("/assets/modal/close.png") no-repeat scroll center center #000000;
+    border-radius: 0 0 0 2px;
+    cursor: pointer;
+    display: none;
+    height: 20px;
+    margin: 0;
+    padding: 4px;
+    position: absolute;
+    right: 10px;
+    width: 20px;
+    z-index: 150022;}
+a.piro_next{ background: url("/assets/modal/next.png") no-repeat scroll center center #000000;
+    border: medium none;
+    border-radius: 2px 0 0 2px;
+    cursor: pointer;
+    display: block;
+    height: 20px;
+    margin: -15px 0 0;
+    outline: medium none;
+    padding: 6px;
+    position: absolute;
+    right: 10px;
+    text-indent: -999em;
+    top: 50%;
+    width: 20px;
+    z-index: 150023;}
+a:hover.piro_next{background: url("/assets/modal/next.png") no-repeat scroll center center #000000;}
+.piro_next_fake{display: none !important;}
+.piro_prev_fake{display: none !important;}
+
+a.piro_prev{background: url("/assets/modal/prev.png") no-repeat scroll center center #000000;
+    border: medium none;
+    border-radius: 0 2px 2px 0;
+    cursor: pointer;
+    display: block;
+    height: 20px;
+    margin: -15px 0 0;
+    outline: medium none;
+    padding: 6px;
+    position: absolute;
+    left: 10px;
+    text-indent: -999em;
+    top: 50%;
+    width: 20px;
+    z-index: 150023;}
+a:hover.piro_prev{background: url("/assets/modal/prev.png") no-repeat scroll center center #000000}
+a.close_pirobox{color:#bb0f05;}
+
+
+
+

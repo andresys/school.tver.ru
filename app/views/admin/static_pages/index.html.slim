@@ -1,0 +1,16 @@
+/ .l-content
+/   ul.b-bread-crumbs
+/     li.item
+/       = link_to 'Панель управления', admin_school_path(@school)
+/   h1 = get_static_page_title
+/   p.b-gray-text Страйтесь наполнять разделы текстами, написанными для простых людей. Если у вас есть формальный документ, написанный для Министерства образования, лучше прикрепите его как документ для скачивания. Не старайтесь заполнить все разделы сразу. Пока раздел не заполнен, он не отображается в меню сайта. По мере написания хороших текстов, открывайте новые разделы и это будет лучшим развитием вашего сайта.
+/   .l-wrapper-column
+/     - @group.each do |group|
+/       .l-fcolumn-277
+/         ul.b-list-with-notes.b-list-with-notes-long
+/           - group.static_page.each do |page|
+/             li.item
+/               h3.title = link_to page.title, :action => :edit, :id => page.id
+/               .note = get_last_update_page(page)
+/   .b-back
+/     = link_to 'Назад в панель управления', admin_school_path(@school)

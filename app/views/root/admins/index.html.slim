@@ -1,0 +1,19 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', '/root/'
+  h1.h-bottom-30 Администраторы
+  .b-with-left-content
+    .left-content
+      .b-add.b-add-mini
+        = link_to '', root_admin_path('new'), :class => 'addition'
+        span.text Новый администратор
+    .l-column-540
+      -if @admins
+        - @admins.each do |admin|
+            .b-white-with-border.h-shift-16
+              h2.main-title.h-bottom-18
+                = link_to :action => :edit, :id => admin.id do
+                  = admin.admin_name
+  .b-back
+    = link_to 'Назад в панель управления', '/root/'

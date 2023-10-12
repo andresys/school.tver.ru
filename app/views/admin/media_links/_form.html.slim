@@ -1,0 +1,40 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    li.item
+      = link_to 'Упоминания в СМИ', :action => :index
+  h1 = 'Добавить упоминание в СМИ'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = get_error(@media_link)
+        = form_for(['admin', @school, @media_link],:validate => true) do |f|
+          .b-field
+            = f.label :title,'Название'
+            = f.text_field :title, :class => 'width-486'
+          .b-field
+            = f.label :url,'Ссылка на новость'
+            = f.text_field :url, :class => 'width-486'
+          .b-field
+            = f.label :url_source,'Название источника'
+            = f.text_field :url_source
+          .b-field
+            = f.label :date_public,'Дата'
+            = f.date_select :date_public
+
+          
+          / h3.h-bottom-10 = 'Учителя и сотрудники'
+          / - @school.teacher.each do |teacher|
+          /   = check_box_tag :teacher_ids, teacher.id, @media_link.teacher.include?(teacher), :name => 'media_link[teacher_ids][]'
+          /   = teacher.surname
+          
+          .b-save.b-submit-interactive
+            = f.submit buttom_title, :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', :action => :index
+            - if @media_link.id
+              .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @media_link.id }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

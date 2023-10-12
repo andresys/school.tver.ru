@@ -1,0 +1,83 @@
+
+.l-footer
+  .l-column-964
+    ul.b-about-school
+      li.item
+        h3.title.title-width-image
+          = image_tag @school.emblem.url(:thumb)
+          = @school.title
+        ul.b-list-without-decor
+          li.item
+            = link_to 'Нормативные документы', school_document_path(@school, '')
+          / li.item
+          /   a href="/" class="link"= "Устав школы"
+          li.item
+            = link_to 'Контакты', :controller => 'school', :id => @school, :action => :contact
+          li.item
+            = link_to 'Вход для школы', '/admin'
+      li.item.item-182
+        h3.title Жизнь школы
+        ul.b-list-without-decor
+          li.item
+            = link_to "Новости", school_news_path(@school, '')
+          li.item
+            = link_to "Анонсы событий", school_announcement_path(@school, '')
+          li.item
+            = link_to "Творчество учеников", school_creation_path(@school, '')
+          li.item
+            = link_to "Объявления родителям", school_announce_to_parent_path(@school, '')
+          li.item
+      li.item
+        h3.title Связь со школой
+        ul.b-list-without-decor.h-bottom-0
+          li.item
+            = mail_to @school.mailto, 'Написать письмо', :class => 'link' if !@school.mailto.blank?
+        ul.b-social-network
+          - if !@school.vk.blank?
+            li.item
+              = link_to @school.vk do
+                b.b-icon.b-icon-vk
+                | Группа школы Вконтакте
+          - if !@school.facebook.blank?
+            li.item
+              = link_to @school.facebook do
+                b.b-icon.b-icon-facebook
+                | Страница школы на Facebook
+          - if !@school.twitter.blank?
+            li.item
+              = link_to @school.twitter do
+                b.b-icon.b-icon-twitter
+                | Новости школы в Twitter
+      li.item
+        h3.title Все школы Твери
+        ul.b-list-without-decor
+          li.item
+            a href="/" = "Список школ"
+          li.item
+            a href="/about" = "О проекте"
+
+    .b-development
+      br/
+      = link_to 'http://www.tver.ru/', :class => 'link' do
+        span = 'Администрация города Твери'
+    br       
+    .b-copyright
+      span.copyright ©
+      = link_to 'http://www.obraz.tver.ru/', :class => 'link' do          
+        span = 'Управление образования Администрации г. Твери, 2012'
+    
+    .b-development
+      br/
+      = link_to 'http://www.gosuslugi.ru/pgu/', :class => 'link' do
+        span = 'Единый  портал государственных и муниципальных услуг'
+    .b-development
+      br/
+      = link_to 'http://bus.gov.ru/pub/independentRating/list', :class => 'link' do
+        span = 'Результаты независимой оценки качества оказания услуг организациями'
+    br
+    .b-development
+      | Разработка системы:
+      br/
+      = link_to 'http://university.tversu.ru/', :class => 'link' do
+        span = 'ООО «Лаборатория информационных технологий Тверского госуниверситета»'
+    = render 'layouts/yandex_metrika'

@@ -1,0 +1,45 @@
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school, :class => 'link'
+        li.item
+          = link_to 'Обучение', school_static_page_path(@school.to_param, '', :link => 'training'), :class => 'link'
+        li.item.item-selected.item-last
+          = 'Методические объединения'
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      h1.title-main = 'Методические объединения'
+      .h-shift-49-25
+        - @methodics.each do |methodic|
+          .b-association
+              h2.b-title-wline-white 
+                span.text = methodic.title
+              ul.b-list-with-image
+                - if !methodic.teacher.blank?
+                  - have_docs = 0
+                  - methodic.teacher.each do |teacher|
+                    - if !teacher.methodic_document.blank?
+                      - have_docs += 1
+                    li.item
+                      = image_tag teacher.photo.url(:index), :class => 'image'
+                      = link_to school_teacher_path(@school, teacher) do 
+                        span = teacher.surname
+                        br
+                        span = teacher.name
+                  - if have_docs > 0
+                    .b-gray-ribbon-dotted.b-gray-ribbon-dotted-white
+                      .content
+                        .corner-l-t
+                        .corner-r-t
+                        .corner-l-b
+                        .corner-r-b
+                        span.desc = 'Учителя этого объединения опубликовали'
+                        = link_to school_methodic_path(@school, methodic), :class => 'gray-link' do 
+                          = get_methodic_groops_note(methodic)
+                - else
+                  p = 'Информация об учителях не указана'

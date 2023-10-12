@@ -1,0 +1,22 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    li.item
+      = link_to 'Пользователи', admin_school_user_path(@school, '') 
+  h1 Администраторы
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+
+          .b-field-with-help
+            .b-field
+              h3 = "ФИО"
+              = @user.username
+          .b-field-with-help
+            .b-field
+              h3 = "E-mail"
+              = @user.email
+          = link_to 'Назад', admin_school_user_path(@school, '')
+  .b-back
+    = link_to 'Панель управления', admin_school_path(@school)

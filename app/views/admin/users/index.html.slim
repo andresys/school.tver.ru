@@ -1,0 +1,23 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1.h-bottom-30 Пользователи
+  .b-with-left-content
+    .left-content
+      .b-add.b-add-mini
+        = link_to '', admin_school_user_path(@school, 'new'), :class => 'addition'
+        span.text Новый пользователь
+
+    -if @school
+      - @school.users.each do |user|
+        .b-white-with-border.h-shift-16
+          h2.main-title
+            = link_to :action => :edit, :id => user.id do
+              = user.username
+          - if user.root
+            p.desc = '(администратор)'
+          - else
+            p.desc = '(пользователь)'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

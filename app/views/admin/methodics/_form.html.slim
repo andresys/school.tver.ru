@@ -1,0 +1,35 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    li.item
+      = link_to 'Методические объединения', :action => :index
+  h1 = 'Методические объединения'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = get_error(@methodic)
+        = form_for(['admin', @school, @methodic],:validate => true) do |f|
+          .b-field
+            = f.label :full_title, 'Полное название'
+            = f.text_field :full_title, :class => 'width-486'
+          .b-field
+            = f.label :title, 'Краткое название'
+            = f.text_field :title, :class => 'width-486'
+          .b-field
+            h3.h-bottom-5 = 'Учителя и сотрудники'
+            i.arrow
+            ul.b-list-fields
+              - @school.teacher.each do |teacher|
+                li.item
+                  = check_box_tag :teacher_ids, teacher.id, @methodic.teacher.include?(teacher), :name => 'methodic[teacher_ids][]'
+                  = teacher.surname + ' ' + teacher.name
+          .b-save.b-submit-interactive
+            = f.submit buttom_title, :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', :action => :index
+            - if @methodic.id
+              .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @methodic.id }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

@@ -1,0 +1,13 @@
+.l-content
+  .l-column-460
+    .b-white-with-border.h-shift-16.h-bottom-52
+      h1.h-bottom-13 = 'Управление образования Администрации г. Твери'
+      p.h-bottom-22 = link_to 'Все школы города', root_school_path('')
+    .l-lcolumn-780-border
+      .l-fcolumn-297
+      h2.b-title-italic.b-title-italic-on-border = 'Текстовые страницы'
+      ul.b-list-with-notes
+        li.item
+          h3.title = link_to @about.title, {:controller => :global_pages, :action => 'edit', :id => @about.id}
+          /.note = '(раздел не заполнен)'
+      / p = link_to @to_teacher.title, {:controller => :global_pages, :action => 'edit', :id => @to_teacher.id}

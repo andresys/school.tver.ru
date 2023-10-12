@@ -1,0 +1,18 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1.h-bottom-30 Кружки и секции
+  .l-column-600
+    .b-with-left-content
+      .left-content
+        .b-add
+          = link_to '', admin_school_section_path(@school, 'new'), :class => 'addition'
+          span.text Новый кружок
+      - @sections.each do |section|
+        .b-white-with-border.h-shift-16
+          h2.title.h-bottom-18 = link_to :action => :edit, :id => section.id, :school_id => @school.permalink do
+            = section.title
+        /= link_to :action => :edit, :id => teacher.id
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

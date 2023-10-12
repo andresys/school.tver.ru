@@ -1,0 +1,13 @@
+.l-content
+  .l-column-580
+    h2.b-title-with-points
+      span.text Обучение
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      .h-full-shift-49
+        .l-wrapper-info
+          - @groups.each do |group|
+            = render 'static_page_group', :group => group

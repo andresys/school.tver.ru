@@ -1,0 +1,57 @@
+= javascript_include_tag("https://api-maps.yandex.ru/2.0/?apikey=bff51604-5d57-4e9d-9d5a-35ca4e9cd6eb&load=package.full&lang=ru-RU")
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', '/root/'
+    li.item
+      = link_to 'Школы', root_school_path('') 
+  h1 Школа
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = form_for ['root', @school], :validate => true do |f|
+          = get_error(@school)
+          .b-field-with-help
+            .b-field
+              = f.label :permalink,"Идентификатор школы"
+              = f.text_field :permalink, :class => 'width-136'
+            .help
+              p = "Только цифры и/или маленькие латинские буквы."
+          .b-field-with-help
+            .b-field
+              = f.label :title, "Название школы"
+              = f.text_field :title, :class => 'width-136'
+            p.help = "Короткое название школы. Например, «Школа №14», «Гимназия №12»."
+          .b-field-with-help
+            .b-field
+              = f.label :pos_id, "Идентификатор школы в ПОС*"
+              = f.text_field :pos_id, :class => 'width-136'
+            p.help = "Цифровой ID в подсистеме обратной связи (Госуслуги)."
+          .b-field
+            = f.label :district, 'Район'
+            - if f.object.district
+              = select_tag "school[district_id]", options_from_collection_for_select(District.all, 'id', 'title', f.object.district.id)
+            - else
+              = select_tag "school[district_id]", options_from_collection_for_select(District.all, 'id', 'title')
+          .b-field
+            = javascript_include_tag "admin/maps"
+            = f.label "Координаты школы"
+            #map style="width:500px;height:300px;"
+            .b-hidden
+              .l-wrapper-column
+                .l-column-158
+                  = f.label :n_cordinate, "Северная широта"
+                  = f.number_field :n_cordinate,:validate => {:presence => false}
+                .l-column-158
+                  = f.label :e_cordinate, "Восточная долгота"
+                  = f.number_field :e_cordinate,:validate => {:presence => false}
+            
+          .b-save
+            = f.submit button_title 
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', root_school_path('')
+          - if @school.id
+            .b-remove-link = link_to (@school.archive ? 'Разархивировать' : 'Архивировать'), { :action => :destroy, :id => @school.permalink }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', '/root/'

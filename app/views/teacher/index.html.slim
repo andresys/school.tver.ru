@@ -1,0 +1,31 @@
+.l-content
+  .l-column-602
+    ul.b-bread-crumbs
+      li.item
+        = link_to 'Главная', @school, :class => 'link'
+      li.item
+        = link_to 'О школе', school_static_page_path(@school.to_param, '', :link => 'about'), :class => 'link'
+      li.item.item-selected.item-last
+        = 'Коллектив'
+  - @teacher_groups.each do |teacher_groups|
+    - if !teacher_groups.teacher.blank?
+      h2.b-title-with-points
+        a name=teacher_groups.title
+        span.text = teacher_groups.title
+      .l-column-846
+        ul.b-list-decorative.b-list-decorative-person
+          - teacher_sort_posts = [/^директор/i, /заместитель директора/i, /учитель начальных/i, /учитель/i]
+          - teacher_groups.teacher.sort_by { |t| teacher_sort_posts.index{|p| t.post =~ p } || teacher_sort_posts.size }.each do |teacher|
+            li.item
+              .b-gray-ribbon-big
+                i.corner-l-t
+                i.corner-r-t
+                i.corner-l-b
+                i.corner-r-b
+                .sugnature
+                  h4.title
+                    = link_to school_teacher_path(@school, teacher) do
+                      = image_tag teacher.photo.url(:index)
+                      = ' '
+                      = teacher.get_name
+                  .note = raw(teacher.post)

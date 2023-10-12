@@ -1,0 +1,37 @@
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school, :class => 'link'
+        li.item.item-selected.item-last
+          = link_to 'Ежедневное меню', school_food_path(@school, '')
+      .b-read-article
+        h2.title = @food.title 
+
+  - url = "#{request.protocol}#{request.host}:#{request.port}#{@food.file.url}"
+  /- if ['doc', 'docx', 'pdf'].include?(@food.get_file_ext)
+    .b-show-docs
+      .file-block
+        iframe src="//docs.google.com/viewer?url=#{url}&amp;embedded=true" height="1192" width="880"
+  /- if ['xls', 'xlsx'].include?(@food.get_file_ext)
+    .b-show-docs.album
+      .file-block
+        iframe src="//docs.google.com/viewer?url=#{url}&amp;embedded=true" height="600" width="880"
+  /- if ['bmp', 'jpg', 'jpeg', 'gif', 'png'].include?(@food.get_file_ext)
+    .b-show-docs.image
+      .file-block
+        img src=url alt=@food.menufilename
+  .b-show-docs.table.clear-user-agent-styles
+      #tableHost
+        script src="/xlsxviewer.js"
+        javascript: 
+          let drawRoot = document.getElementById('tableHost')
+          let url = "#{url}"
+          XLSXViewer.loadWorkbook(drawRoot, url)
+  ul.b-list-docs
+    li.item
+      = link_to @food.file.url, :class => 'link' do
+        = image_tag @food.icon_for, :class => 'icon'
+        span.text = @food.title 
+        span.size = number_to_human_size(@food.file_file_size)

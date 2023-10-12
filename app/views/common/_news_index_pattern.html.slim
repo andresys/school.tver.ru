@@ -1,0 +1,78 @@
+.l-content.l-content-index
+  .l-column-964
+    h2.b-title-with-points.h-bottom-32
+      span.text
+        | Жизнь школы
+    .h-shift-49 style="position: relative; top: -20px;"
+      .l-centering
+        = get_news_navigation()
+  .l-column-566
+    -if !@news_data.nil?
+      .b-events-container
+        - case @type_news
+        - when 'food'
+          - @news_data.each do |group|
+            .b-event
+              .b-gray-ribbon-big
+                i.corner-l-t
+                i.corner-r-t
+                i.corner-l-b
+                i.corner-r-b
+                .h-shift-24
+                  .b-green-line
+                    i.ribbon
+                    span.text = Russian::strftime(group[0], "%B %Y")
+                  - group[1].each do |food|
+                    h3.title-event
+                      = link_to food.title, :action => :show, :id => food.menufilename
+        - else
+          - @news_data.each do |news_data|
+            .b-event
+              .b-gray-ribbon-big
+                i.corner-l-t
+                i.corner-r-t
+                i.corner-l-b
+                i.corner-r-b
+                .h-shift-24
+                  .b-green-line
+                    i.ribbon
+                    span.text = title
+                  - if news_data.class.to_s == "Announcement"
+                    .category
+                      span.category-data = anons_datetime(news_data)
+                      span.summary = news_data.location
+                  h3.title-event
+                    = link_to news_data.title, :action => :show, :id => news_data
+                  = raw(news_data.description)
+                  = render_three_photo(news_data)
+                  = get_youtube_video(news_data)
+                  - if news_data.class.to_s != "Announcement" && !news_data.news_date.blank?
+                    .data = get_date_in_hyman(news_data)
+      .b-ajax-loader
+        img.image src="/assets/icons/ajax-loader.gif" alt="loader"
+
+    - if check_next_page()
+      .b-enable-sorting
+        .b-event
+            .b-gray-ribbon-big
+              i.corner-l-t
+              i.corner-r-t
+              i.corner-l-b
+              i.corner-r-b
+              .h-shift-14
+                .l-centering
+                  INPUT.b-add-news onclick="GetNextPage('#{get_next_page()}');" type="button" value="Еще из жизни школы"
+
+    - years = get_year_period()
+    - if years.count > 1
+      .b-gray-ribbon-dotted
+            .content
+              i.corner-l-t
+              i.corner-r-t
+              i.corner-l-b
+              i.corner-r-b
+              h2.title Архив новостей и событий
+              ul.b-list-diamonds
+                - years.each do |year|
+                  li.item
+                    = link_to year, '?year='+year.to_s

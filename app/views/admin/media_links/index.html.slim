@@ -1,0 +1,17 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1.h-bottom-30 = 'Упоминания в СМИ'
+  .l-column-600
+    .b-with-left-content
+      .left-content
+        = render 'admin/layouts/add_buttom', :buttom_title => 'Добавить упоминание'
+      - @media_link.each do |media_link|
+        .b-white-with-border.h-shift-16
+          /*h2.title = link_to media_link.title, media_link.url
+          h2.title = link_to media_link.title, :action => :edit, :id => media_link.id
+          p = media_link.url_source
+
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

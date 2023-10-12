@@ -1,0 +1,37 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1 О школе
+  .l-lcolumn-540
+      .b-white-with-border
+        .h-for-form
+          = form_for ['admin', @school, @group], :validate => true do |f|
+            / = get_error(@group)
+            .b-field
+              = f.label :title, 'Название'
+              - if f.object.default
+                = f.object.title
+              - else
+                = f.text_field :title
+            // Не удалять
+            = f.hidden_field :content_type
+            .b-field
+              = f.label :file_field, 'Изображение'
+              - if !f.object.image_file_name.nil?
+                = image_tag f.object.image(:size), :class => 'image-page-group'
+                = f.file_field :image
+              - else
+                = f.file_field :image
+            .b-field
+              = f.label :published do
+                = f.check_box :published
+                ' Опубликовано
+            .b-save.b-submit-interactive 
+              = f.submit buttom, :class => 'submit'
+              /|  или 
+              /span.b-lblack
+                /- if !f.object.?
+                /  = link_to 'Отмена', admin_school_page_group_path(@school, :link => :content_type)
+              - if @group.id && !@group.default
+                .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @group.id }, :method => :delete, :confirm => 'Вы уверены?'

@@ -1,0 +1,15 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1.h-bottom-30 = 'Методические объединения'
+  .l-column-600
+    .b-with-left-content
+      .left-content
+        = render 'admin/layouts/add_buttom', :buttom_title => 'Добавить методическое объединение'
+      - @methodic.each do |methodic|
+        .b-white-with-border.h-shift-16
+          h2.title = link_to methodic.title, :action => :edit, :id => methodic.id
+          p = get_methodic_teacher_count(methodic)
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

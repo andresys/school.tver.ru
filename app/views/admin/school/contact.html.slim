@@ -1,0 +1,51 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1 = 'Контакты'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = form_for @school, :url => { :action => :update, :id => @school.permalink}, :method => :put, :validate => true do |f|
+          .b-field-with-help
+            .b-field
+              = f.label :address,"Адрес школы"
+              = f.text_field :address, :class => 'width-486'
+          .b-field-with-help
+            .b-field
+              = f.label :mailto,"E-mail"
+              = f.text_field :mailto, :class => 'width-486'
+          .b-field-with-help
+            .b-field
+              = f.label :phones,"Телефоны"
+              = rener_small_ckeditor(f, 'phones')
+
+          .b-field-with-help
+            .b-field
+              = f.label :other_contact,"Другие контакты"
+              = rener_small_ckeditor(f, 'other_contact', 300)
+          .b-field-with-help
+            .b-field
+              = f.label :existing_site,"Существующий сайт"
+              = f.text_field :existing_site
+          .b-field-with-help
+            .b-field
+              = f.label :vk,"Вконтакте"
+              = f.text_field :vk
+          /.b-field-with-help
+            .b-field
+              = f.label :facebook,"Facebook"
+              = f.text_field :facebook
+          /.b-field-with-help
+            .b-field
+              = f.label :twitter,"Twitter"
+              = f.text_field :twitter
+
+          .b-save.b-submit-interactive
+            = f.submit "Сохранить", :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', admin_school_path(@school)
+
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

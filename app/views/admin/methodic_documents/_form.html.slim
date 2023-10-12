@@ -1,0 +1,61 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    li.item
+      = link_to 'Методические материалы', :action => :index
+  h1 = 'Методический материал'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = get_error(@doc)
+        = form_for(['admin', @school, @doc],:validate => true) do |f|
+          .b-field
+            = f.label :title, 'Заголовок'
+            = f.text_field :title, :class => 'width-486'
+          .b-field-with-help
+            .b-field
+              = f.label :date, 'Дата создания'
+              = f.date_select :date, :class => 'width-486'
+            .help = 'Дата создания самого документа, а не публикации его на сайте'
+          .b-field-with-help
+            .b-field
+              = f.label :description, 'Краткое описание'
+              / = rener_ckeditor(f, 'description')
+              = f.text_field :description, :class => 'width-486'
+            .help = 'Опишите в нескольких предложениях суть методического материала.'
+          .b-field-with-help
+            .b-field
+              = f.label :file, 'Документ'
+              /*- if !@doc.file_file_name.nil?
+                .b-removing-files
+                  = image_tag @doc.icon_for, :class => 'image-wsize'
+                  = f.file_field :file
+              = f.file_field :file
+            .help.help-height-20 = 'Если работа будет загружена в формате .doc, .docx или .pdf, посетители смогут посмотреть её прямо в браузере, не скачивая копию к себе на компьютер. Правда, есть ограничение на размер файла — до 10 мегабайт.'
+          - if !@doc.file_file_name.nil?
+            .b-field
+              = f.label 'Скачать'
+              = link_to @doc.file.url, :class => 'link' do
+                span.text = @doc.title 
+          .b-field
+            h3.h-bottom-5 = 'Автор'
+            i.arrow
+            ul.b-list-fields
+              li.item
+                - if f.object.teacher_id
+                  = f.select "teacher_id", options_from_collection_for_select(@school.teacher, "id", "get_name", f.object.teacher.id)
+                - else
+                  = f.select "teacher_id", options_from_collection_for_select(@school.teacher, "id", "get_name")
+          /*.b-downloader
+            img.loader src='/assets/icons/loading.gif' alt='loader...'
+            span.text = "Осуществляется загрузка..."
+          .b-save.b-submit-interactive
+            = f.submit buttom_title, :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', :action => :index
+            - if @doc.id
+              .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @doc.id }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

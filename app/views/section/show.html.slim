@@ -1,0 +1,86 @@
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school
+        li.item
+          = link_to 'Кружки и секции', school_section_path(@school, '')
+        li.item.item-selected.item-last
+          = @section.title
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      .b-area-with-left-content
+        .h-shift-49
+          h1.b-title-reduced.h-bottom-4 = @section.title
+          .note
+            = @section.description
+        = render 'layouts/photo_gallery', :page => @section
+        .h-shift-49
+          .b-with-image
+            .left-content
+              ul.b-list-with-selections
+                - if !@section.teacher.blank?
+                  li.item
+                    .selection Руководство:
+                    ul.b-list-with-mini-image
+                      - @section.teacher.each do |teacher|
+                        li.item-list
+                          = link_to school_teacher_path(@school, teacher) do
+                            = image_tag teacher.photo.url(:medium), :class => 'mini_image'
+                            span.text = teacher.get_name
+                li.item
+                  span.selection Год основания:
+                  = ' ' + @section.year
+                li.item
+                  span.selection Участников:
+                  = ' ' + @section.count.to_s
+            #tabs
+              ul.b-tabs.b-tabs-compact.h-bottom-15
+                - if !@section.body.blank?
+                  li.item
+                    a.link.selected href="#tab-inf-1"
+                      span.text О клубе
+                - if !@section.news.find_all_by_achiev_section(true).blank?
+                  li.item
+                    a.link href="#tab-inf-2"
+                      span.text Достижения
+                - if !@section.news.find_all_by_achiev_section(false).blank?
+                  li.item
+                    a.link href="#tab-inf-3"
+                      span.text Упоминания в новостях
+              .b-tabs-contents
+                #tab-inf-1.js-tab
+                  .h-bottom-14
+                    = raw(@section.body)
+                #tab-inf-2.js-tab
+                  - @section.news.find_all_by_achiev_section(true).each do |link|
+                    p = link_to link.title, school_news_path(@school, link)
+                #tab-inf-3.js-tab
+                  - @section.news.find_all_by_achiev_section(false).each do |link|
+                    p = link_to link.title, school_news_path(@school, link)
+    .l-column-700
+      .h-shift-49
+        ul.b-list-docs
+          - @section.document.each do |doc|
+            li.item
+                = link_to doc.file.url, :class => 'link' do
+                  = image_tag doc.icon_for
+                  br
+                  span.text = doc.title
+                span.size = number_to_human_size(doc.file_file_size)
+        - if !@section.simply_link.blank?
+          .b-gray-ribbon-dotted
+            .content
+              i.corner-l-t
+              i.corner-r-t
+              i.corner-l-b
+              i.corner-r-b
+              h2.title Смотрите также
+              ul.b-list-diamonds
+                - @section.simply_link.each do |link|
+                  li.item
+                    = link_to link.link_title, link.link_url

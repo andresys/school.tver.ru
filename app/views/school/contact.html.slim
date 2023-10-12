@@ -1,0 +1,51 @@
+/ - if @school
+/   = render 'layouts/header'
+/ - if @school
+/   = render 'layouts/footer'
+= content_for :head do
+  = javascript_include_tag "http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"
+- if @school
+  = render 'layouts/header'
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school
+        li.item
+          = link_to 'О школе', school_static_page_path(@school.to_param, '', :link => 'about'), :class => 'link'
+        li.item.item-selected.item-last
+          = 'Контакты'
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      h1.title-main = 'Контакты'
+      = render 'map_contacts'
+      #map_contacts
+      .h-shift-49
+        .b-contacts
+          - if !@school.address.blank?
+            .address = @school.address
+          .l-wrapper-column
+            .l-column-282.h-right-37
+              h2.b-title-wline-white
+                span.text = 'Телефоны'
+              .content = raw(@school.phones)
+            .l-column-282
+              h2.b-title-wline-white
+                span.text = 'Другие контакты'
+              ul.contacts
+                - if !@school.other_contact.blank?
+                  li.item
+                    .content = raw(@school.other_contact)
+                - if !@school.existing_site.blank?
+                  li.item
+                    h4.title = 'Собственный сайт'
+                    .link = link_to @school.existing_site, @school.existing_site
+                - if !@school.mailto.blank?
+                  li.item
+                    h4.title = 'Электронная почта'
+                    .link 
+                      a href="mailto:#{@school.mailto}" = @school.mailto

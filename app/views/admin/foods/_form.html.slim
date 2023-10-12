@@ -1,0 +1,44 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    li.item
+      = link_to 'Ежедневное меню горячего питания', :action => :index
+  h1 = 'Меню'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = get_error(@food)
+        = form_for(['admin', @school, @food],:validate => true) do |f|
+          .b-field-with-help
+            .b-field
+              = f.label :date, 'Дата меню'
+              = f.date_select :date, :class => 'width-486'
+            /.help = 'Дата меню'
+          .b-field
+            h3.h-bottom-5 = 'Тип меню *'
+            i.arrow
+            ul.b-list-fields
+              - Food.menu_types.each do |menu_type|
+                li.item
+                  = radio_button_tag :menu_type, menu_type[:id], @food.menu_type == menu_type[:id], name: 'food[menu_type]'
+                  = label_tag "menu_type_#{menu_type[:id]}", menu_type[:name], style: "width: auto"
+          .b-field-with-help
+            .b-field
+              = f.label :file, 'Файл меню'
+              = f.file_field :file
+            .help.help-height-20 = raw 'Размещаемый на  сайте файл меню в виде  электронной таблицы. Есть ограничение на размер файла — до 10 мегабайт. Шаблон для заполнения можно скачать <a href="/menu.xlsx">тут</a>.'
+          - if !@food.file_file_name.nil?
+            .b-field
+              = f.label 'Скачать'
+              = link_to @food.file.url, :class => 'link' do
+                span.text = @food.title
+          .b-save.b-submit-interactive
+            = f.submit buttom_title, :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', :action => :index
+            - if @food.id
+              .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @food.id }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

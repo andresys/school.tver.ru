@@ -1,0 +1,16 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', '/root/'
+  h1 = 'Подробнее о проекте'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = form_for ['root', @page] do |f|
+          .b-field
+            h3.h-bottom-10 = 'Содержание'
+            /h3.h-bottom-10 = f.object.title
+            = rener_ckeditor(f, 'body')
+          .b-save = f.submit 'Сохранить'
+  .b-back
+    = link_to 'Назад в панель управления', '/root/'

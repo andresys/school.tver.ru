@@ -1,0 +1,68 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1 = 'Особенности'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = form_for @school, :url => { :action => :update, :id => @school.permalink}, :method => :put, :validate => true do |f|
+          = get_error(@school)
+          .b-field-with-help
+            .b-field
+              = f.label :title,"Короткое название школы"
+              = f.text_field :title, :class => 'width-286'
+            p.help = "Например, «Школа №14», «Гимназия №12»."
+          .b-field-with-help
+            .b-field
+              = f.label :description,"Полное название школы"
+              = f.text_field :description, :class => 'width-486'
+            p.help = "Например, «Муниципальное образовательное учреждение средняя общеобразовательная школа №14»"
+          / .b-field
+          /   = f.label :"Краткое описание школы"
+          /   = f.text_area :description, :class => 'width-482' 
+          / .b-field
+          /   = f.label :"Изображение школы"
+          /   = f.file_field :image
+          .b-field-with-help
+            .b-field
+              = f.label :emblem,"Логотип или герб"
+              - if !f.object.emblem_file_name.nil?
+                .b-field-with-image
+                  .b-removing-image
+                    = image_tag f.object.emblem.url(:medium), :class => 'image'
+                    = f.check_box :delete_emblem, :class => 'hidden'
+                    = f.label :delete_emblem, :class => "b-removing-icon"
+                  = f.file_field :emblem, :class => 'field'
+              - else
+                = f.file_field :emblem
+            .help
+              p.h-bottom-11 = "Если у вас есть логотип, загрузите его, пожалуйста, в формате PNG без фона:"
+              .image
+                img src="/assets/example/logo.png" alt=""
+          .b-field-with-help
+            .b-field      
+              = f.label :school_index_image,'Фотографии'
+              ul.b-list-files
+                = f.fields_for :school_index_image do |builder|
+                  = render 'school_index_image_fields', :f => builder
+                li.item.b-adding-file = link_to_add_fields "Добавить еще фотографию", f, :school_index_image, ''
+            .help
+              p = "Фотогалерея на главной странице сайта вашей школы. Чтобы галерея лучше смотрелась, используйте горизонтальные изображения."
+              .image
+                img alt="Пример загружаемого изображения" src="/assets/example/image.png"
+          .b-field-with-help
+            .b-field
+              = f.label :text_about_page,"Текст о школе"
+              = rener_ckeditor(f, 'text_about_page')
+            p.help = "Приветственный текст о вашей школе. Отображается на стартовой странице «О школе». Простым и понятным языком расскажите о ваших особенностях, методиках преподавания."
+                  / .b-field
+          /   = f.label :Район
+          /   = select_tag "district", options_from_collection_for_select(District.all, "id", "title")
+          .b-save.b-submit-interactive
+            = f.submit "Сохранить", :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', admin_school_path(@school)
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

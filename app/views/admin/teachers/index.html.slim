@@ -1,0 +1,27 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1.h-bottom-30 Коллектив
+  .b-with-left-content
+    .left-content
+      .b-add
+        = link_to '', admin_school_teacher_path(@school, 'new'), :class => 'addition'
+        span.text Новый сотрудник
+    ul.b-list-person
+      -if @teacher_groups
+        - @teacher_groups.each do |group|
+          - group.teacher.each do |teacher|
+            li.item
+              .group = teacher.teacher_group.title
+              h2.title
+                = link_to :action => :edit, :id => teacher.id do
+                  = image_tag teacher.photo.url(:medium), :class => 'image'
+                  span.last-name = teacher.surname
+                  span.name = ' ' + teacher.name
+              .summary = raw(teacher.post)
+              = link_to admin_school_methodic_document_path(@school, 'new', :teacher_id => teacher.id), :class => 'b-add-plus' do
+                span.icon-add = '+'
+                span.text = 'Добавить материал'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

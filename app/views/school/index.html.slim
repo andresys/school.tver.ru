@@ -1,0 +1,111 @@
+.l-portal-index.l-page
+  i.b-brand-tver
+  .l-header
+    .l-column-964
+      ul.b-top-menu
+        li.item
+            = link_to 'О проекте', 'about', :class => 'link'
+      ul.b-social-network-icons
+        li.item
+          #vk_like
+        /li.item.item-fb 
+          iframe src="//www.facebook.com/plugins/like.php?href=#{request.protocol}#{request.host_with_port}#{request.fullpath}/&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"
+        /li.item.item-twit
+          a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" width="117px"
+        li.item
+          .g-plusone data-size="medium"
+  .l-content
+    .l-centering.h-height-27
+      h1.b-title-with-ribbon
+        i.ribbon-l
+        i.ribbon-r
+        span.text = 'Школы города'
+    .l-column-964
+      #tabs
+        .l-centering
+          ul.b-tabs.b-tabs-compact
+            li.item
+              a.link.selected href="#tab-inf-1" = 'Списком'
+            li.item id="item item-map"
+              a.link.tab-map href="#tab-inf-2" = 'На карте'
+        .b-tabs-contents
+          #tab-inf-1.js-tab
+            .h-left-79
+              #tabs-area
+                ul.b-tabs-area
+                  - @district.each do |district|
+                    li.item
+                      - if @count_of_district == 0
+                        a.selected.link href="#tab-area-#{list_district}"
+                          i.corner-r
+                          = district.title
+                      - else
+                        a.link href="#tab-area-#{list_district}"
+                          i.corner-r
+                          = district.title
+                .b-tabs-contents-areas
+                  - @district.each do |district|
+                    .js-tab-area id="tab-area-#{district.id}"
+                      .l-wrapper-column
+                        - if !district.school.nil?
+                          - if district.school.size > 1
+                            .l-column-177
+                              ul.b-list-schools
+                                - district.get_sort_school[0..((district.school.where(archive: false).size/2)-1)].each do |school|
+                                  li.item = link_to school.title, school, :class => 'link'
+                            .l-column-177
+                              ul.b-list-schools
+                                - district.get_sort_school[district.school.where(archive: false).size/2..district.school.size].each do |school|
+                                  li.item = link_to school.title, school, :class => 'link'
+
+                          - else
+                            ul.b-list-schools
+                             - district.get_sort_school.each do |school|
+                              li.item = link_to school.title, school
+          #tab-inf-2.js-tab
+            = render 'map'
+            #map style="width:964px;height:600px"
+    i.b-bridge
+    i.b-children
+  .l-footer
+    .l-column-964
+      .l-wrapper
+        .l-column-288
+
+    
+          .b-development
+            br/
+            = link_to 'https://www.tver.ru/', :class => 'link' do
+              span = 'Администрация города Твери'
+          br       
+          .b-copyright
+            span.copyright ©
+            = link_to 'https://obraz.tver.ru/', :class => 'link' do          
+              span = 'Управление образования Администрации г. Твери, 2012'
+          
+          .b-development
+            br/
+            = link_to 'https://www.gosuslugi.ru/pgu/', :class => 'link' do
+              span = 'Единый  портал государственных и муниципальных услуг'
+          .b-development
+            br/
+            = link_to 'https://bus.gov.ru/pub/independentRating/list', :class => 'link' do
+              span = 'Результаты независимой оценки качества оказания услуг организациями'
+          br
+          .b-development
+            | Разработка системы:
+            br/
+            = link_to 'http://university.tversu.ru/', :class => 'link' do
+              span = 'ООО «Лаборатория информационных технологий Тверского госуниверситета»'
+
+        ul.b-inline-right-menu
+          li.item
+            = link_to 'Подробнее о проекте', 'about', :class => 'link'
+          / li.item
+            / = link_to 'Для представителей школ', 'to_teacher', :class => 'link'
+          li.item
+            = link_to 'Вход для Управления образования', 'root', :class => 'link'
+        = render 'layouts/yandex_metrika'
+/ - @schools.each do |school|
+/   p = link_to school.title, school
+

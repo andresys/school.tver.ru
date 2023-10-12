@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title Школьный портал
+    = stylesheet_link_tag "site/application", :media => "all"
+    = javascript_include_tag "site/application"
+    = yield :head
+    - if @school.blank?
+      = javascript_include_tag "//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"
+      = javascript_include_tag "site/map"
+    = javascript_include_tag "//vk.com/js/api/openapi.js?71"
+    = javascript_include_tag "//apis.google.com/js/plusone.js"
+    = javascript_include_tag "site/likes-index"
+    = csrf_meta_tags
+
+    /![if lte IE 8]
+       | = stylesheet_link_tag "ie.css"
+    /![if lte IE 7]
+       | = stylesheet_link_tag "ie7.css"
+
+    meta content="text/html; charset=utf-8" http-equiv="content-type"
+    = favicon_link_tag '/favicon.png'
+
+  = content_tag :body, class: finevision_class do
+    = render 'layouts/finevision'
+
+    = yield
+    - if @school
+      = render 'layouts/footer'

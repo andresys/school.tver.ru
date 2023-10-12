@@ -1,0 +1,10 @@
+.l-content
+  .l-column-540
+    .b-white-with-border.h-shift-16
+      p = link_to 'Администраторы системы', root_admin_path('')
+    .b-white-with-border.h-shift-16
+      p = link_to 'Управление школами', root_school_path('')
+    br Текстовые страницы
+    p
+    p = link_to @about.title, {:controller => :global_pages, :action => 'edit', :id => @about.id}
+    / p = link_to @to_teacher.title, {:controller => :global_pages, :action => 'edit', :id => @to_teacher.id}

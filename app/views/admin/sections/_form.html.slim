@@ -1,0 +1,66 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    li.item
+      = link_to 'Кружки и секции', :action => :index
+  h1 Кружок или секция
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = form_for(['admin', @school, @section], :validate => true) do |f|
+          = get_error(@section)
+          .b-field
+            = f.label :title, 'Название'
+            = f.text_field :title, :class => 'width-486' 
+          .b-field
+            = f.label :count,"Примерное количество участников"
+            = f.text_field :count, :class => 'width-94' 
+          .b-field
+            = f.label :year,"Год основания"
+            = f.text_field :year, :class => 'width-94' 
+          .b-field-with-help
+            .b-field
+              = f.label :type_of_section,"Тип кружка"
+              = f.text_field :type_of_section, :class => 'width-300' 
+            .help
+              p = "Одно слово, описывающее направление кружка, например: спорт, творчество, ..."
+          .b-field-with-help
+            .b-field
+              = f.label :description,"Краткое описание"
+              = f.text_field :description, :class => 'width-300' 
+            .help
+              p = "Развёрнутое в одно предложение описание направления деятельности кружка, например: спортивная секция по айкидо"
+          .b-field
+            = f.label :body,"Подробное описание кружка"
+            = rener_ckeditor(f, 'body')
+          .b-field
+            = f.label :image,"Изображение"
+            - if !f.object.image_file_name.nil?
+              = image_tag f.object.image.url(:medium)
+              = f.check_box :delete_image
+            = f.file_field :image
+          .b-field
+            .b-hidden-text
+              .change-show-hidden-text
+                a.b-pseudo-link href="?open"
+                  | Руководители кружка
+                  i.arrow
+              .hidden-text
+                ul.b-list-fields
+                  - @school.teacher.each do |teacher|
+                    li.item
+                      = check_box_tag :teacher_ids, teacher.id, @section.teacher.include?(teacher), :name => 'section[teacher_ids][]'
+                      = teacher.get_name
+          = render 'admin/common/dynamic_content', :f => f
+          .b-save.b-submit-interactive
+            = f.submit button_text, :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', :action => :index
+            - if @section.id
+              .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @section.id }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)
+
+

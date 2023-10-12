@@ -1,0 +1,10 @@
+#errorExplanation
+  h3 = 'Не все обязательные поля заполнены'
+  / h2
+  /   = pluralize(@error.errors.count, "ошибок")
+  /   |  Найдено
+  / ul
+  /   /- @error.errors.get(:surname).each do |msg|
+  /   /  li = msg
+  /   - @error.errors.full_messages.each do |msg|
+  /     li= msg

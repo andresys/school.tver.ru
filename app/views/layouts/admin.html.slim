@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    / meta content="text/html; charset=utf-8" http-equiv="content-type"
+    title Административный интерфейс школы
+    = stylesheet_link_tag "admin/application"
+    = javascript_include_tag "admin/application"
+    = csrf_meta_tags
+    /![if lte IE 7]
+      | <link rel="stylesheet" type="text/css" href="/admin/css/ie7.css"/>
+  body
+    .l-header
+      .l-column-780
+        .l-float-left
+          h1.b-title-in-header Управление сайтом школы
+          .b-lblack
+            = link_to 'Перейти на сайт', @school
+        .b-user
+          .name-user
+            | Вы вошли как 
+            a.link = link_to current_user.username, admin_school_user_path(@school, current_user.id.to_s+'/edit')
+            - if current_user.root
+              span.desc.b-black = link_to "Учётные записи", admin_school_user_path(@school, '')
+          .left-link.b-black 
+            = link_to 'Выход', destroy_user_session_path, :method => :delete, :class => 'link'
+    = yield

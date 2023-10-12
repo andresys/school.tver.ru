@@ -1,0 +1,28 @@
+.b-event
+  .b-gray-ribbon-big
+    i.corner-l-t
+    i.corner-r-t
+    i.corner-l-b
+    i.corner-r-b
+    .h-shift-24
+      .b-green-line
+        i.ribbon
+        span.text
+          = get_news_type(news)
+      h3.title-event
+        / # = link_to news.title, :controller => news.class.to_s.tableize, :action => :show, :id => news
+        = get_news_link(news)
+      = raw(news.description)
+      - if !news.photo.blank?
+        .fotorama-news.fotorama-list
+          - news.photo.each do |photo|
+            a rel="#{photo.url(:big)}" href="#{photo.url(:big)}"
+              = image_tag photo.image.url(:thumb)
+      - if !news.youtube.blank?
+        .b-video
+          = youtube_embed(news.youtube)
+      - if news.news_date
+        - if Time.now.year != news.news_date.year
+          .data = Russian::strftime(news.news_date.to_date, "%d %B %Y")
+        - else
+          .data = Russian::strftime(news.news_date.to_date, "%d %B")

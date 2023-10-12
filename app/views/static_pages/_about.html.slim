@@ -1,0 +1,40 @@
+.l-content
+  .l-column-846
+    h2.b-title-with-points
+      span.text Сведения об образовательной организации
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      .h-full-shift-49.h-bottom-40
+        .l-wrapper-info
+          - @groups.each do |group|
+            = render 'static_page_group', :group => group
+          /.b-info
+            h3.b-title-17 Коллектив
+            .content
+              = image_tag 'default/teacher/about_school.jpg'
+              ul.info-menu
+                - if !@school.teacher_group.find_by_title('Руководство').teacher.blank?
+                  li.item
+                    = link_to 'Руководство', school_teacher_path(@school, '', :anchor => 'Руководство'), :class => 'link'
+                - if !@school.teacher_group.find_by_title('Учителя').teacher.blank?
+                  li.item
+                    = link_to 'Учителя', school_teacher_path(@school, '', :anchor => 'Учителя'), :class => 'link'
+                - if !@school.teacher_group.find_by_title('Сотрудники').teacher.blank?
+                  li.item
+                    = link_to 'Сотрудники', school_teacher_path(@school, '', :anchor => 'Сотрудники'), :class => 'link'
+        - if !@school.text_about_page.blank?
+          .l-wrapper-column
+            .l-column-423
+              = raw(@school.text_about_page)
+            .l-column-296
+              h3.b-title-17 Контакты
+              .b-mini-maps
+                #maps 
+                  = render 'mini_map'
+                -if !@school.address.blank?
+                  .desc = raw(@school.address)
+              .b-black-capt-link
+                = link_to 'Все контакты', :controller => 'school', :id => @school, :action => :contact

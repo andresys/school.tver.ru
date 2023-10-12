@@ -1,0 +1,15 @@
+li.item
+  - if f.object.title.nil?
+    .h-bottom-10.h-top-5
+      = f.select 'sponsor_type', ['Спонсор','Партнер']
+    .l-wrapper
+      = f.text_field :title, :placeholder => "Название спонсора", :class => 'input-left'
+      = f.text_field :sponsor_url, :placeholder => "Ссылка на сайт спонсора", :class => 'input-right'
+    
+  - else
+    .b-links-removing
+      h3.title = f.object.sponsor_type
+      = f.text_field :title, :placeholder => "Название спонсора", :class => 'input-left'
+      = f.url_field :sponsor_url, :placeholder => "Ссылка на сайт спонсора", :class => 'input-right'
+      = f.check_box :_destroy, :class => 'hidden' 
+      = f.label :_destroy, ' ', :class => 'b-removing-icon'

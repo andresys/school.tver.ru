@@ -1,0 +1,10 @@
+li.item
+  - if !f.object.link_url.nil?
+    .b-links-removing
+      = f.text_field :link_url, :placeholder => "Адрес ссылки", :class => 'input-left'
+      = f.text_field :link_title, :placeholder => "Название ссылки", :class => 'input-right'
+      = f.label :_destroy, 'Удалить', :class => 'b-removing-icon'
+      = f.check_box :_destroy, :class => 'hidden' 
+  - else
+    = f.text_field :link_url, :placeholder => "Адрес ссылки", :class => 'input-left'
+    = f.text_field :link_title, :placeholder => "Название ссылки", :class => 'input-right'

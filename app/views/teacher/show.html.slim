@@ -1,0 +1,116 @@
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school, :class => 'link'
+        li.item
+          = link_to 'О школе', school_static_page_path(@school.to_param, '', :link => 'about'), :class => 'link'
+        li.item.item-selected.item-last
+        = link_to @teacher.teacher_group.title, school_teacher_path(@school, '', :anchor => @teacher.teacher_group.title)
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      .h-shift-49
+        .b-area-with-left-content
+          h1.b-title-center = @teacher.get_name
+          .note
+            = raw(@teacher.post)
+          .b-divider-with-line
+            span.divider
+          .b-with-image
+            .left-content
+              = image_tag @teacher.photo.url(:thumb), :class => 'image'
+              ul.b-list-with-selections
+                li.item
+                  span.selection Стаж: 
+                  = @teacher.experience
+                li.item
+                  span.selection Квалификация: 
+                  = raw(@teacher.clafication)
+            #tabs
+              - blank = true
+              ul.b-tabs.b-tabs-compact
+                - if !@teacher.about_teacher.blank?
+                  - blank = false
+                  li.item
+                    a.link.selected href="#tab-inf-1"
+                      span.text Об учителе
+                - if !@teacher.news.where(:achiev_teacher => true ).blank? || !@teacher.achiev.blank?
+                  - blank = false
+                  li.item
+                    a.link href="#tab-inf-2"
+                      span.text Достижения
+                - if !@teacher.methodic_document.blank?
+                  - blank = false
+                  li.item
+                    a.link href="#tab-inf-3"
+                      span.text Методическая работа
+                - if !@teacher.teacher_section_link.blank?
+                  - blank = false
+                  li.item
+                    a.link href="#tab-inf-4"
+                      span.text Кружки и секции
+                - if !@teacher.news.where(:achiev_school => false, :achiev_teacher => false ).blank?
+                  - blank = false
+                  li.item
+                    a.link href="#tab-inf-5"
+                      span.text Упоминания в новостях
+                - if !@teacher.contact.blank?
+                  - blank = false
+                  li.item
+                    a.link href="#tab-inf-6"
+                      span.text Контакты
+                - if blank
+                  = 'Дополнительная информация не указана.'
+              .b-tabs-contents
+                #tab-inf-1.js-tab
+                  = raw(@teacher.about_teacher)
+                #tab-inf-2.js-tab
+                  ul.b-list-without-design
+                      = raw(@teacher.achiev)               
+                  - if !@teacher.news.where(:achiev_teacher => true ).blank?
+                      - @teacher.news.where(:achiev_teacher => true ).each do |news|
+                        li.item
+                          = link_to news.title, school_news_path(@school, news)
+                          = ',  '
+                          span.desc = Russian::strftime(news.news_date.to_date, "%Y")
+                #tab-inf-3.js-tab
+                  - if !@teacher.methodic.blank?
+                    h3.size16 = 'Состоит в методических объединениях'
+                    ul
+                      - @teacher.methodic.each do |methodic|
+                         li = methodic.title
+                  h3.size16 = 'Методические материалы'
+                  ul.b-list-with-icon
+                    - @teacher.methodic_document.each do |doc|
+                      li.item
+                        = image_tag doc.icon_for, :class => 'icon'
+                        h4.title = doc.title
+                        -if !doc.description.blank?
+                          .summary 
+                            = raw(doc.description)
+                        .desc = methodic_date(doc.date)
+                        .download
+                          = link_to 'Посмотреть', school_methodic_document_path(@school, doc)
+                          |  или 
+                          = link_to 'Скачать', doc.file.url
+                          = " (" + number_to_human_size(doc.file_file_size) + ")"
+                #tab-inf-4.js-tab
+                  - @teacher.teacher_section_link.each do |link|
+                    p = link_to link.section.title, school_section_path(@school, link.section)
+                #tab-inf-5.js-tab
+                  ul.b-list-without-design
+                    - @teacher.news.where(:achiev_teacher => false, :achiev_school => false).each do |news|
+                        li.item
+                          = link_to news.title, school_news_path(@school, news)
+                          = ',  '
+                          span.desc = Russian::strftime(news.news_date.to_date, "%Y")
+                #tab-inf-6.js-tab
+                  ul.b-list-without-design
+                    li.item
+                      = render :inline => @teacher.contact
+
+                    

@@ -1,0 +1,26 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+  h1.h-bottom-30 = 'Ежедневное меню горячего питания'
+  .l-column-600
+    .b-with-left-content
+      .left-content
+        = render 'admin/layouts/add_buttom', :buttom_title => 'Добавить меню'
+
+        .b-add.b-add-mini
+          = link_to url_for(:controller => :findex, :action => :edit) do 
+            .addition
+              .text 
+                = 'Ресурсы питания'
+          span.text = 'Ресурсы питания'
+      - @food.each do |food|
+        .b-white-with-border.h-shift-16
+          .b-docs
+            h2.title
+              = link_to :action => :edit, :id => food.id do
+                = image_tag food.small_icon_for, :class => 'image'
+                span.title = food.title
+            p.summary = 'Загружен '+Russian::strftime(food.created_at, "%d %B %Y")
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

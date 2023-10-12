@@ -1,0 +1,18 @@
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school
+        li.item
+          = link_to static_page_title(link), school_static_pages_path(@school, :link => link)
+        li.item.item-selected.item-last
+          = link_to title
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      h1.title-main = title
+      .h-shift-49
+        = block_given? ? yield : ''

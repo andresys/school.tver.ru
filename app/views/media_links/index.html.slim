@@ -1,0 +1,25 @@
+.l-content
+  .l-column-700
+    .h-shift-49
+      ul.b-bread-crumbs
+        li.item
+          = link_to 'Главная', @school, :class => 'link'
+        li.item
+          = link_to 'О школе', school_static_page_path(@school.to_param, '', :link => 'about'), :class => 'link'
+        li.item.item-selected.item-last
+          = 'Упоминания в СМИ'
+    .b-gray-ribbon-big
+      i.corner-l-t
+      i.corner-r-t
+      i.corner-l-b
+      i.corner-r-b
+      h1.title-main = 'Упоминания в СМИ'
+      .h-shift-49
+        - @media_link.each do |media_link|
+          li.item
+              = link_to media_link.url do 
+                = media_link.title
+              = '  '
+              = media_link.url_source
+              = ', '
+              = media_link.date_public.to_date

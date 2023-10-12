@@ -1,0 +1,37 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    -@folder.parent_list.each do |folder|
+      li.item
+        = link_to folder.title, admin_school_folder_path(@school,folder)
+    - if !@folder.title.nil?
+      li.item-selected.item-last
+        = link_to @folder.title, admin_school_folder_path(@school,@folder)
+  h1 = 'Папки документов'
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        = get_error(@folder)
+        = form_for(['admin', @school, @folder],:validate => true) do |f|
+          .b-field
+
+
+            = f.label :title, 'Название папки'
+            = f.text_field :title, :class => 'width-486'
+
+            = f.label :parent_id, 'Папка'
+            - if f.object.parent_id
+              = f.select "parent_id", options_from_collection_for_select(@school.folder, "id", "title", f.object.parent_id)
+            - else
+              = f.select "parent_id", options_from_collection_for_select(@school.folder, "id", "title")
+
+          .b-save.b-submit-interactive 
+            = f.submit buttom_title, :class => 'submit'
+            |  или 
+            span.b-lblack
+              = link_to 'Отмена', admin_school_folder_path(@school, @folder.parent)
+            - if @folder.id
+              .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @folder.id }, :method => :delete, :confirm => 'Вы уверены?'
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)

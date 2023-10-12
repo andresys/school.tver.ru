@@ -1,0 +1,30 @@
+<script type="text/javascript">
+ymaps.ready(init);
+
+function init () {
+    var myMap = new ymaps.Map('map_contacts', {
+        center: ['<%= @school.n_cordinate %>','<%= @school.e_cordinate %>'],
+        zoom: 13,
+        type: "yandex#map"
+    });
+    myPlacemark = new ymaps.Placemark(['<%= @school.n_cordinate %>','<%= @school.e_cordinate %>'], {
+        iconContent: '<%= @school.permalink %>',
+        balloonContentHeader: '<h3 class="b-map-title"><a href="/school/<%= @school.permalink %>"><%= @school.title %></a>&nbsp;&nbsp</h3>',
+        <% if @school.existing_site.blank? %> 
+            balloonContentBody: '<div class="b-map-address"><%= @school.address %></div><div class="b-map-phone"></div><div class="b-map-link"><a href="/school/<%= @school.permalink %>">Сайт школы на портале</a></div>'
+        <% else %>
+            balloonContentBody: '<div class="b-map-address"><%= @school.address %></div><div class="b-map-phone"></div><div class="b-map-link"><a href="/school/<%= @school.permalink %>">Сайт школы на портале</a></div><div class="b-map-link h-bottom-8"><a href="<%= @school.existing_site %>">Сайт школы собственный</a></div>'
+        <% end %>
+    }, {
+        preset: 'twirl#blueStretchyIcon'
+    });
+    myMap.geoObjects
+        .add(myPlacemark);
+    
+    myMap.controls
+        .add('zoomControl')
+        .add(new ymaps.control.TypeSelector(["yandex#map", "yandex#satellite"]));  
+    
+}
+
+</script>

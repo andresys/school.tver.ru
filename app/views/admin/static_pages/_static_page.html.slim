@@ -1,0 +1,18 @@
+.l-content
+  ul.b-bread-crumbs
+    li.item
+      = link_to 'Панель управления', admin_school_path(@school)
+    li.item
+      = link_to get_static_page_title_from_edit, admin_school_page_group_path(@school, :link => get_page_group_title)
+  h1 = get_static_page_title_from_edit
+  .l-lcolumn-540
+    .b-white-with-border
+      .h-for-form
+        /= get_error(@page)
+        /= form_for(['admin', @school, @page], :validate => true) do |f|
+        .b-field-with-help style="float: right"
+          .help.help-height-20 = raw 'Содержимое данной страници является статическим, либо глобальным для всех школ и может быть изменено только администратором школьного портала.'
+        h1 style="text-align: center" = @title
+        = block_given? ? yield : ''
+  .b-back
+    = link_to 'Назад в панель управления', admin_school_path(@school)
