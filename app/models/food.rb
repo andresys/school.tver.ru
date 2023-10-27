@@ -1,5 +1,7 @@
+require 'food_type'
+
 class Food < ActiveRecord::Base
-  default_scope :order => 'date DESC'
+  default_scope :order => 'date DESC, updated_at DESC'
   attr_accessible :date, :file, :menu_type
 
   has_attached_file :file, {
@@ -15,23 +17,23 @@ class Food < ActiveRecord::Base
 
   belongs_to :school
 
-  def self.menu_types
-    [
-      { id: 0, name: 'обычное меню' },
-      { id: 1, name: 'меню для младших классов', suffix: 'sm' }
-    ]
-  end
+  after_initialize lambda {FoodType.current = FoodType.all.select {|mt| mt.types.map(&:id).include? menu_type}.first.slug}
 
   def self.get_by_menufilename(school, menufilename)
-    year, month, day, menu_type = menufilename.scan(/(\d{4})-(\d{2})-(\d{2})-?([a-zA-Z0-9]+)?/).first
-    date = Date::strptime("#{year}-#{month}-#{day}", "%Y-%m-%d")
-    menu_type = Food.menu_types.select{|mt| mt[:suffix] == menu_type }
-    menu_type = menu_type && menu_type.first[:id] || 0
-    school.food.find_by_date_and_menu_type(date, menu_type)
+    type, year, month, day, suffix = menufilename.scan(/([a-zA-Z0-9]+)?(\d{4})-?(\d{2})?-?(\d{2})?-?([a-zA-Z0-9]+)?/).first
+    case type
+    when 'tm'
+      p menu_type = FoodType.all.select{|mt| mt.slug == :typical}.first.types.select{|t| t.suffix == suffix }.map(&:id)
+      school.food.where('extract(year  from date) = ?', year).find_by_menu_type(menu_type)
+    else
+      menu_type = FoodType.all.select{|mt| mt.slug == :daily}.first.types.select{|t| t.suffix == suffix }.map(&:id)
+      date = Date::strptime("#{year}-#{month}-#{day}", "%Y-%m-%d")
+      school.food.find_by_date_and_menu_type(date, menu_type)
+    end
   end
 
   def title
-    "#{get_menu_type && get_menu_type[:name] || menu_type} от #{Russian::strftime(date, "%d %B %Y")}".mb_chars.capitalize.to_s
+    "#{get_menu_type.name} от #{Russian::strftime(date, "%d %B %Y")}".mb_chars.capitalize.to_s
   end
 
   def icon_for(options={})
@@ -53,8 +55,7 @@ class Food < ActiveRecord::Base
   end
 
   def get_menu_type
-    mt = Food.menu_types.select{|mt| mt[:id] == menu_type }
-    mt && mt.first
+    FoodType.all.select {|mt| mt.types.map(&:id).include? menu_type}.first
   end
 
   def get_file_ext
@@ -63,8 +64,7 @@ class Food < ActiveRecord::Base
   end
 
   def menufilename
-    suffix = get_menu_type && get_menu_type[:suffix]
-    "#{date.strftime('%F')}#{suffix && '-'+suffix}"
+    get_menu_type.types.select {|t| t.id == menu_type}.first.filename.call(date)
   end
 
 private

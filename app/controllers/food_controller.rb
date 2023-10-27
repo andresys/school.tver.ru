@@ -17,6 +17,8 @@ include ApplicationHelper
     end
 
     @food = Food.get_by_menufilename(@school, params[:id])
+    # render :file => "#{Rails.root}/public/404.html", :layout => false, :status => :not_found unless @food
+    raise ActionController::RoutingError, 'Not Found' unless @food
     respond_to do |format|
       format.html {}
       format.all do

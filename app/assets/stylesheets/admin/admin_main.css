@@ -709,6 +709,7 @@ FORM {
 .b-field {
 	position: relative;
 	margin-bottom: 30px;
+	width: 100%;
 }
 	.b-field .width-94 {
 		display: block;
@@ -1150,6 +1151,27 @@ FORM {
 	display: none;
 }
 
+.b-list-diamonds {
+	margin: 5px 0px;
+}
+	.b-list-diamonds .item {
+		display: inline-block;
+		padding: 0 5px 0 13px;
+		margin-bottom: 0;
+		background: url('/assets/elements/diamond.png') no-repeat 0 6px;
+	}
+	.b-list-diamonds .item:first-child {
+		padding-left: 0;
+		background: none;
+	}
+	.b-list-diamonds .item,
+	.b-list-diamonds .item:visited {
+		color: #069;
+	}
+	.b-list-diamonds .item:hover {
+		color: #2D90C5
+	}
 
-
-
+	.b-group-text {
+		margin: 0px 0px 20px;	
+	}

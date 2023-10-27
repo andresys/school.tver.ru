@@ -3,8 +3,8 @@
     li.item
       = link_to 'Панель управления', admin_school_path(@school)
     li.item
-      = link_to 'Ежедневное меню горячего питания', :action => :index
-  h1 = 'Меню'
+      = link_to 'Ежедневное меню горячего питания', :action => :index, :type => FoodType.current.slug
+  h1 = FoodType.current.name
   .l-lcolumn-540
     .b-white-with-border
       .h-for-form
@@ -19,10 +19,10 @@
             h3.h-bottom-5 = 'Тип меню *'
             i.arrow
             ul.b-list-fields
-              - Food.menu_types.each do |menu_type|
+              - FoodType.current.types.each do |t|
                 li.item
-                  = radio_button_tag :menu_type, menu_type[:id], @food.menu_type == menu_type[:id], name: 'food[menu_type]'
-                  = label_tag "menu_type_#{menu_type[:id]}", menu_type[:name], style: "width: auto"
+                  = radio_button_tag :menu_type, t[:id], @food.menu_type == t[:id], name: 'food[menu_type]'
+                  = label_tag "menu_type_#{t[:id]}", t[:name], style: "width: auto"
           .b-field-with-help
             .b-field
               = f.label :file, 'Файл меню'
@@ -30,14 +30,15 @@
             .help.help-height-20 = raw 'Размещаемый на  сайте файл меню в виде  электронной таблицы. Есть ограничение на размер файла — до 10 мегабайт. Шаблон для заполнения можно скачать <a href="/menu.xlsx">тут</a>.'
           - if !@food.file_file_name.nil?
             .b-field
-              = f.label 'Скачать'
-              = link_to @food.file.url, :class => 'link' do
-                span.text = @food.title
+              - if @food.file
+                = f.label 'Скачать'
+                  = link_to @food.file.url, :class => 'link' do
+                    span.text = @food.title
           .b-save.b-submit-interactive
             = f.submit buttom_title, :class => 'submit'
             |  или 
             span.b-lblack
-              = link_to 'Отмена', :action => :index
+              = link_to 'Отмена', :action => :index, :type => FoodType.current.slug
             - if @food.id
               .b-remove-link = link_to 'Удалить', { :action => :destroy, :id => @food.id }, :method => :delete, :confirm => 'Вы уверены?'
   .b-back
