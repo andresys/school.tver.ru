@@ -23,7 +23,10 @@ class Food < ActiveRecord::Base
     type, year, month, day, suffix = menufilename.scan(/([a-zA-Z0-9]+)?(\d{4})-?(\d{2})?-?(\d{2})?-?([a-zA-Z0-9]+)?/).first
     case type
     when 'tm'
-      p menu_type = FoodType.all.select{|mt| mt.slug == :typical}.first.types.select{|t| t.suffix == suffix }.map(&:id)
+      menu_type = FoodType.all.select{|mt| mt.slug == :typical}.first.types.select{|t| t.suffix == suffix }.map(&:id)
+      school.food.where('extract(year  from date) = ?', year).find_by_menu_type(menu_type)
+    when 'kp'
+      menu_type = FoodType.all.select{|mt| mt.slug == :kp}.first.types.select{|t| t.suffix == suffix }.map(&:id)
       school.food.where('extract(year  from date) = ?', year).find_by_menu_type(menu_type)
     else
       menu_type = FoodType.all.select{|mt| mt.slug == :daily}.first.types.select{|t| t.suffix == suffix }.map(&:id)

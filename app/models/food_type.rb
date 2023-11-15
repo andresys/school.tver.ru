@@ -9,7 +9,8 @@ class FoodType
   @@current = :daily
   @@types = {
     daily: {name: 'Ежедневное меню', filename: lambda {|date| "#{date.strftime('%F')}"}, types: [{id: 0, name: 'обычное меню'}, {id: 1, name: 'меню для младших классов', suffix: 'sm'}]},
-    typical: {name: 'Типовое меню', filename: lambda {|date| "tm#{date.strftime('%Y')}"}, types: [{id: 2, name: 'обычное меню'}, {id: 3, name: 'меню для младших классов', suffix: 'sm'}, {id: 4, name: 'меню для старших классов', suffix: 'ss'}]}
+    typical: {name: 'Типовое меню', filename: lambda {|date| "tm#{date.strftime('%Y')}"}, types: [{id: 2, name: 'обычное меню'}, {id: 3, name: 'меню для младших классов', suffix: 'sm'}, {id: 4, name: 'меню для старших классов', suffix: 'ss'}]},
+    kp: {name: 'Календарь питания', filename: lambda {|date| "kp#{date.strftime('%Y')}"}, types: [{id: 5, name: 'календарь питания'}]}
   }.map { |k,v| FoodType.new(k, v) }
 
   attr_accessor :name, :slug, :types, :filename

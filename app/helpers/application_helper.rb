@@ -316,7 +316,7 @@ module ApplicationHelper
           when 'news'
             return @school.news[page*10..page*10+9]
           when 'food'
-            return @school.food.group_by{|food| food.date.beginning_of_month}.to_a[page*10..page*10+9]
+            return @school.food.where(menu_type: [0,1]).group_by{|food| food.date.beginning_of_month}.to_a[page*10..page*10+9]
         end
       end
       # news=[]
