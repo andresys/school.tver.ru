@@ -1,12 +1,16 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: school
+  host: 10.10.2.14
+  database: school_dev
+  username: schoolportal
+  password: school
+
 
 production:
   adapter: postgresql
   encoding: unicode
-  host: localhost
+  host: 10.10.2.14
   database: school
   pool: 5
   username: schoolportal

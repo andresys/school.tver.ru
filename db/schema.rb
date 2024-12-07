@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20221006121209) do
 
-  create_table "achievements", :id => false, :force => true do |t|
-    t.integer "parent_id"
-    t.string  "parent_type"
-    t.integer "whose_id"
-    t.string  "whose_type"
-  end
-
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
     t.string   "encrypted_password",     :default => "",    :null => false
@@ -151,13 +144,6 @@ ActiveRecord::Schema.define(:version => 20221006121209) do
 
   add_index "foods", ["school_id"], :name => "index_foods_on_school_id"
 
-  create_table "form_of_trainings", :force => true do |t|
-    t.string  "title"
-    t.integer "school_id"
-  end
-
-  add_index "form_of_trainings", ["school_id"], :name => "index_form_of_trainings_on_school_id"
-
   create_table "global_pages", :force => true do |t|
     t.string   "title"
     t.text     "body"
@@ -192,15 +178,6 @@ ActiveRecord::Schema.define(:version => 20221006121209) do
   end
 
   add_index "methodic_documents", ["teacher_id"], :name => "index_methodic_documents_on_teacher_id"
-
-  create_table "methodic_groups", :force => true do |t|
-    t.string   "title"
-    t.integer  "school_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "methodic_groups", ["school_id"], :name => "index_methodic_groups_on_school_id"
 
   create_table "methodics", :force => true do |t|
     t.integer "school_id"
@@ -249,13 +226,6 @@ ActiveRecord::Schema.define(:version => 20221006121209) do
   end
 
   add_index "page_groups", ["school_id"], :name => "index_page_groups_on_school_id"
-
-  create_table "page_links", :id => false, :force => true do |t|
-    t.integer "parent_page_id"
-    t.string  "parent_page_type"
-    t.integer "chield_page_id"
-    t.string  "chield_page_type"
-  end
 
   create_table "page_navigation_links", :force => true do |t|
     t.integer "page_group_id"
@@ -411,13 +381,6 @@ ActiveRecord::Schema.define(:version => 20221006121209) do
   end
 
   add_index "teachers", ["teacher_group_id"], :name => "index_teachers_on_teacher_group_id"
-
-  create_table "type_of_schools", :force => true do |t|
-    t.string  "title"
-    t.integer "school_id"
-  end
-
-  add_index "type_of_schools", ["school_id"], :name => "index_type_of_schools_on_school_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
