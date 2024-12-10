@@ -42,3 +42,5 @@ gem 'client_side_validations'
 
 gem "progress_bar"
 gem 'rack-proxy', '~> 0.7.2'
+
+gem "mina", "~> 1.2"
