@@ -50,7 +50,7 @@ listen "/var/www/school.tver.ru/app/tmp/unicorn.sock", :backlog => 64
 timeout 30
 
 # feel free to point this anywhere accessible on the filesystem
-pid "/var/www/school.tver.ru/app/shared/pids/unicorn.pid"
+pid "/var/www/school.tver.ru/app/tmp/unicorn.pid"
 
 # By default, the Unicorn logger will write to stderr.
 # Additionally, ome applications/frameworks log to stderr or stdout,
