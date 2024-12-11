@@ -11,7 +11,7 @@ require 'mina/rvm'
 set :application_name, 'schoolportal'
 set :domain, '10.10.2.22'
 set :user, fetch(:application_name)
-set :deploy_to, "/var/www/#{fetch(:user)}.adm.tver.ru/app"
+set :deploy_to, "/var/www/school.tver.ru/app"
 set :repository, 'git@github.com:andresys/school.tver.ru.git'
 set :branch, 'main'
 set :rvm_use_path, '/etc/profile.d/rvm.sh'
@@ -48,9 +48,12 @@ task :setup do
     # Create database.yml for Postgres if it doesn't exist
     path_database_yml = "config/database.yml"
     database_yml = %[production:
-  database: #{fetch(:user)}
   adapter: postgresql
+  host: 10.10.2.14
   pool: 5
+  database: schoolportal
+  username: schoolportal
+  password: 7kkYBPEkaq3v
   timeout: 5000]
     command %[test -e #{path_database_yml} || echo "#{database_yml}" > #{path_database_yml}]
 
@@ -75,7 +78,7 @@ task :deploy do
     invoke :'deploy:cleanup'
 
     on :launch do
-      command "sudo systemctl restart #{fetch(:user)}"
+      command "sudo systemctl restart schoolportal"
     end
   end
 
