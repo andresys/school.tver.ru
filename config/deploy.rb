@@ -25,8 +25,8 @@ set :rvm_use_path, '/etc/profile.d/rvm.sh'
 # Some plugins already add folders to shared_dirs like `mina/rails` add `public/assets`, `vendor/bundle` and many more
 # run `mina -d` to see all folders and files already included in `shared_dirs` and `shared_files`
 # set :shared_dirs, fetch(:shared_dirs, []).push('public/assets')
-set :shared_files, fetch(:shared_files, []).push('config/database.yml')
-set :shared_dirs, fetch(:shared_dirs, []).push('public/packs', 'public/system')
+set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/initializers/secret_token.rb')
+set :shared_dirs, fetch(:shared_dirs, []).push('public/packs', 'public/system', 'public/assets')
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
@@ -43,7 +43,7 @@ task :setup do
 
   in_path(fetch(:shared_path)) do
 
-    command %[mkdir -p config]
+    command %[mkdir -p config/initializers]
 
     # Create database.yml for Postgres if it doesn't exist
     path_database_yml = "config/database.yml"
@@ -56,6 +56,11 @@ task :setup do
   password: 7kkYBPEkaq3v
   timeout: 5000]
     command %[test -e #{path_database_yml} || echo "#{database_yml}" > #{path_database_yml}]
+
+  # Create secret_token.rb if it doesn't exist
+  path_secret_token = "config/initializers/secret_token.rb"
+  secret_token = %[Rails.application.config.secret_token = "WUWWw,RFYrJ4dVqDYJxWNccw!VMNHW"]
+  command %[test -e #{path_secret_token} || echo '#{secret_token}' > #{path_secret_token}]
 
     # Remove others-permission for config directory
     command %[chmod -R o-rwx config]
