@@ -80,8 +80,8 @@
                   = announcement.title
               .note = announcement.location
       .banners
-        = render 'common/banners'
         = render 'common/phone'
+        = render 'common/banners'
         = render 'common/pos' unless @school.pos_id.blank?
       .l-column-566
         - @school.get_last_news(7).each do |news|
