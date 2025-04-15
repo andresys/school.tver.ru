@@ -26,7 +26,7 @@ set :rvm_use_path, '/etc/profile.d/rvm.sh'
 # run `mina -d` to see all folders and files already included in `shared_dirs` and `shared_files`
 # set :shared_dirs, fetch(:shared_dirs, []).push('public/assets')
 set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/initializers/secret_token.rb')
-set :shared_dirs, fetch(:shared_dirs, []).push('public/packs', 'public/system', 'public/assets')
+set :shared_dirs, fetch(:shared_dirs, []).push('public/packs', 'public/system', 'public/assets', 'public/ckeditor_assets')
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
